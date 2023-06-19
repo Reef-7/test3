@@ -1,0 +1,120 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+
+.container {
+    width: 100%;
+    height: 150vh;
+    background-image: linear-gradient(rgba(17, 7, 40, 0.025)), rgba(50, 0, 29, 0.8), url('images/food.jpg');
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+
+}
+
+.form-box {
+    width: 100%;
+    max-width: 400px;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    text-align: center;
+    border-radius: 30px;
+    padding: 70px 80px 90px;
+    background-color: beige;
+}
+
+.form-box h1 {
+    font-size: 30px;
+    margin-bottom: 70px;
+    color: #3c00a0;
+    position: relative;
+}
+
+.form-box h1::after {
+    content: '';
+    width: 20px;
+    height: 3px;
+    border-radius: 32px;
+    position: absolute;
+    bottom: -12px;
+    background-color: #3c00a0;
+    left: 50%;
+    transform: translate(-50%);
+
+}
+
+.input-filed {
+    background: #555;
+    display: flex;
+    border-radius: 4px;
+    margin: 25px;
+    align-items: center;
+    max-height: 50px;
+    transition: max-hight 0.5s;
+    overflow: hidden;
+
+}
+
+input {
+
+    width: 80%;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    padding: 8px 10px;
+
+}
+
+.input-filed i {
+
+    margin-left: 7px;
+    color: black;
+
+}
+
+form p {
+
+    text-align: left;
+    color: #3c00a0;
+    padding: 8px;
+
+}
+
+.btn-filed {
+
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+}
+
+.btn-filed button {
+
+    flex-basis: 48%;
+    background: #3c00a0;
+    color: #fff;
+    height: 40px;
+    border-radius: 22px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: backgrond 1s;
+
+}
+
+.input-group {
+
+    height: 220px;
+}
+
+.btn-filed button.disable {
+
+    background: #eaeaea;
+    color: #555;
+}

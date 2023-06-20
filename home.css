@@ -1,7 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
-/*body {
-    background-image: url()
+body {
+    background-image: url('https://images.pexels.com/photos/7526024/pexels-photo-7526024.jpeg?auto=compress&cs=tinysrgb&w=1600');
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
-;*/
+;
+
+#canvas {
+    border: 1px solid black;
+    background-image: url('https://i.ibb.co/KF5bfTs/logo.jpg');
+
+}
+
+;
+
+
+
+
+/* Define the animation */
+@keyframes flyToCart {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0.2);
+    }
+}
+
+/* Apply the animation to the image */
+.card-img-top.animate {
+    animation: flyToCart 0.5s forwards;
+}
+
+/* Position the flying image */
+#flyingImage {
+    position: absolute;
+    z-index: 9999;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ffffff;
+}

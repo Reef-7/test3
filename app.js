@@ -1,13 +1,14 @@
+
+
 const express = require('express');
 const app = express();
 const path = require('path');
 const port = 3070;
 
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(express.static(path.join(__dirname)));//new
 
 app.listen(port, function () {
-    console.log('connected succesfully')
+    console.log('connected succesfully to port 3070')
 })
 
 app.get('/', (req, res) => {
@@ -34,5 +35,6 @@ app.get('/about', (req, res) => {
 app.get('/cart', (req, res) => {
     res.sendFile(path.join(__dirname, 'cart.html'));
 })
+
 
 

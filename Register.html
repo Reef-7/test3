@@ -2,24 +2,16 @@
 <html lang="en">
 
 <head>
-
-
-
-
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="Register.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="login.css" rel="stylesheet">
-    <title>Login</title>
+    <title>Register</title>
 </head>
 
-
-
 <body>
-
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">BloomBoost</a>
@@ -66,45 +58,106 @@
 
     </nav>
 
+    <section class="vh-100 bg-image">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100" id="signupcontainer">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body p-5">
+                                <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+
+                                <form class="needs-validation" novalidate>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom01">First name</label>
+                                            <input type="text" class="form-control" id="validationCustom01" required>
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom02">Last name</label>
+                                            <input type="text" class="form-control" id="validationCustom02" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="validationCustomUsername">Email</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                            </div>
+                                            <input type="text" class="form-control" id="validationCustomUsername"
+                                                placeholder="Your Email" aria-describedby="inputGroupPrepend" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="validationCustom03">City</label>
+                                            <input type="text" class="form-control" id="validationCustom03"
+                                                placeholder="London" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="inputAddress">Address</label>
+                                            <input type="text" class="form-control" id="inputAddress"
+                                                placeholder="1234 Main St">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-group">
+                                                <select class="form-select" id="floatingSelectGrid"
+                                                    aria-label="Floating label select example">
+                                                    <option selected>Gender</option>
+                                                    <option value="1">Male</option>
+                                                    <option value="2">Female</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="form3Example4cg">Password</label>
+                                                <input type="password" id="form3Example4cg"
+                                                    class="form-control form-control-lg" />
+                                            </div>
+
+                                            <div class="form-outline mb-4">
+                                                <label class="form-label" for="form3Example4cdg">Repeat your
+                                                    password</label>
+                                                <input type="password" id="form3Example4cdg"
+                                                    class="form-control form-control-lg" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck"
+                                                required>
+                                            <label class="form-check-label" for="invalidCheck">
+                                                Agree to terms and conditions
+                                            </label>
+                                            <div class="invalid-feedback">
+                                                You must agree before submitting.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <button class="btn btn-primary" type="submit" id="Register">Submit</button>
+                                    </div>
+
+                                    <p class="text-center text-muted mt-5 mb-0">Have already an account? <a
+                                            href="login.html" class="fw-bold text-body"><u>Login here</u></a></p>
+
+                                </form>
 
 
-
-
-
-    <form id="LoginForm">
-        <div class="form-box">
-            <center>
-                <h1 id="title"> Login </h1>
-            </center>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email</label>
-                <i class="fa-sharp fa-regular fa-envelope"></i>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone
-                    else.</small>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <i class="fa-solid fa-lock"></i>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <p> Lost password?<a href="#">click here!</a></p>
-            <div class="form-check">
-                <div class="btn-filed">
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <button type="button" id="signup" class="btn btn-primary">Sign Up</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </form>
-
-
-
-
-
-
-
+    </section>
 
     <footer class="bg-dark text-center text-white">
 
@@ -209,13 +262,10 @@
     <!--Footer -->
 
 
-    <script src="home.js"></script>
     <script src="app.js"></script>
-    <script src="login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
 </body>
-
 
 </html>

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
 body {
-    background-image: url('https://images.pexels.com/photos/7526024/pexels-photo-7526024.jpeg?auto=compress&cs=tinysrgb&w=1600');
+
     margin: 0;
     padding: 0;
     background-size: cover;
@@ -46,4 +46,19 @@ body {
     height: 50px;
     border-radius: 50%;
     background-color: #ffffff;
+}
+
+
+.fit-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+    max-width: 450px;
+    max-height: 300px;
+    object-fit: contain;
 }

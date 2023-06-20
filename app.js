@@ -35,6 +35,9 @@ app.get('/about', (req, res) => {
 app.get('/cart', (req, res) => {
     res.sendFile(path.join(__dirname, 'cart.html'));
 })
+app.get('/Register', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Register.html'));
+})
 
 
 

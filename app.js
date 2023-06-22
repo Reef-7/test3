@@ -5,7 +5,16 @@ const app = express();
 const path = require('path');
 const port = 3070;
 
+
+const db = require('./seeds');//Check!
+const Product = require('./product');//Check!
+const ejs = require('ejs');//Check!
+const User = require('./users');
+
 app.use(express.static(path.join(__dirname)));//new
+
+
+app.set('view engine', 'ejs'); //Check!
 
 app.listen(port, function () {
     console.log('connected succesfully to port 3070')
@@ -40,4 +49,31 @@ app.get('/Register', (req, res) => {
 })
 
 
+//To check!!
+app.get('/product-list', async (req, res) => {
+    try {
+        const products = await Product.find({}).lean();
 
+        console.log(products); // Log the products array to check the retrieved data
+
+        res.render('ProductsList', { products });
+    } catch (error) {
+        console.log('Error retrieving products:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+
+app.get('/user-list', async (req, res) => {
+    try {
+        const users = await User.find({}).lean();
+
+        console.log(users); // Log the users array to check the retrieved data
+
+        res.render('UsersList', { users });
+    } catch (error) {
+        console.log('Error retrieving users:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Product List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Product List</h1>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Title</th>
+                    <th>Brand</th>
+                    <th>Quantity</th>
+                    <th>URL</th>
+                    <th>Product ID</th>
+                    <th>Listing ID</th>
+                    <th>Highlights</th>
+                    <th>Availability</th>
+                    <th>Selling Price</th>
+                    <th>Original Price</th>
+                    <th>Currency</th>
+                    <th>Average Rating</th>
+                    <th>Rating Count</th>
+                    <th>Review Count</th>
+                    <th>1 Star Count</th>
+                    <th>2 Star Count</th>
+                    <th>3 Star Count</th>
+                    <th>4 Star Count</th>
+                    <th>5 Star Count</th>
+                    <th>Image</th>
+                    <!-- Add more table headers for other properties -->
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(function(product) { %>
+                    <tr>
+                        <td>
+                            <%= product.title %>
+                        </td>
+                        <td>
+                            <%= product.brand %>
+                        </td>
+                        <td>
+                            <%= product.quantity %>
+                        </td>
+                        <td>
+                            <%= product.url %>
+                        </td>
+                        <td>
+                            <%= product.product_id %>
+                        </td>
+                        <td>
+                            <%= product.listing_id %>
+                        </td>
+                        <td>
+                            <%= product.highlights %>
+                        </td>
+                        <td>
+                            <%= product.availability %>
+                        </td>
+                        <td>
+                            <%= product.selling_price %>
+                        </td>
+                        <td>
+                            <%= product.original_price %>
+                        </td>
+                        <td>
+                            <%= product.currency %>
+                        </td>
+                        <td>
+                            <%= product.avg_rating %>
+                        </td>
+                        <td>
+                            <%= product.rating_count %>
+                        </td>
+                        <td>
+                            <%= product.review_count %>
+                        </td>
+                        <td>
+                            <%= product['1_stars_count'] %>
+                        </td>
+                        <td>
+                            <%= product['2_stars_count'] %>
+                        </td>
+                        <td>
+                            <%= product['3_stars_count'] %>
+                        </td>
+                        <td>
+                            <%= product['4_stars_count'] %>
+                        </td>
+                        <td>
+                            <%= product['5_stars_count'] %>
+                        </td>
+                        <td>
+                            <img src="<%= product.image %>" alt="<%= product.title %>"
+                                style="max-width: 100px; max-height: 100px;">
+                        </td>
+
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

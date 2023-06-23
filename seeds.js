@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const Product = require('./product.js');
+
 
 const connectionURL = 'mongodb+srv://rifstudy7:B7Kdrz4TRPY3jpZz@cluster0.s7ccuri.mongodb.net/';
 const databaseName = 'WebApplicationsProject';

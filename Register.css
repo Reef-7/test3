@@ -32,4 +32,23 @@
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    height: 80vh;
+    /*uses scroll up and down*/
+    overflow-y: auto;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    max-width: 100%;
+    height: auto;
+    overflow: auto;
+}
+
+.text-uppercase {
+    color: #84fab0;
+    text-shadow: 5px 5px 10px #16FF00;
+}
+
+.leb {}
+
+#card {
+    border-radius: 15px
 }

@@ -17,9 +17,20 @@ body {
 
 }
 
-;
 
+.dropdown:hover>.dropdown-menu {
+    display: block;
+    color: white;
+}
 
+a.dropdown-item {
+    color: white;
+}
+
+.dropdown-menu a.dropdown-item:hover {
+    background-color: grey;
+    color: white;
+}
 
 
 /* Define the animation */

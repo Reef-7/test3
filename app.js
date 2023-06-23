@@ -192,3 +192,57 @@ app.get('/update-product', async (req, res) => {
     }
 });
 
+app.post('/update-product/:id', async (req, res) => {
+    const productId = req.params.id;
+    const updates = {}; // Initialize an empty object for storing the updates
+
+    // Check if each field exists in the request body and has a non-empty value
+    if (req.body.title) {
+        updates.title = req.body.title;
+    }
+    if (req.body.category) {
+        updates.category = req.body.category;
+    }
+    if (req.body.brand) {
+        updates.brand = req.body.brand;
+    }
+    if (req.body.quantity) {
+        updates.quantity = req.body.quantity;
+    }
+    if (req.body.url) {
+        updates.url = req.body.url;
+    }
+    if (req.body.highlights) {
+        updates.highlights = req.body.highlights;
+    }
+    if (req.body.availability) {
+        updates.availability = req.body.availability;
+    }
+    if (req.body.selling_price) {
+        updates.selling_price = req.body.selling_price;
+    }
+    if (req.body.original_price) {
+        updates.original_price = req.body.original_price;
+    }
+    if (req.body.units) {
+        updates.units = req.body.units;
+    }
+    if (req.body.image) {
+        updates.image = req.body.image;
+    }
+
+    try {
+        const updatedProduct = await Product.findByIdAndUpdate(productId, updates, { new: true });
+
+        if (!updatedProduct) {
+            // Handle case when the product with the given ID is not found
+            return res.status(404).send('Product not found');
+        }
+
+        res.redirect('/product-list');
+    } catch (error) {
+        console.log('Error updating product:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+

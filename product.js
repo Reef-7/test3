@@ -21,7 +21,8 @@ const productSchema = new mongoose.Schema({
     '3_stars_count': Number,
     '4_stars_count': Number,
     '5_stars_count': Number,
-    image: String
+    image: String,
+    units: Number
 });
 
 const Product = mongoose.model('Products', productSchema);

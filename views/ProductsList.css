@@ -23,3 +23,8 @@ th {
     min-height: 100%;
     overflow-y: scroll;
 }
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+}

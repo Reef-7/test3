@@ -10,7 +10,8 @@ const db = require('./seeds');//Check!
 const Product = require('./product');//Check!
 const ejs = require('ejs');//Check!
 const User = require('./users');
-
+const bodyParser = require('body-parser');//check!
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));//new
 
 
@@ -50,16 +51,27 @@ app.get('/Register', (req, res) => {
 
 
 
+
+
 app.get('/product-list', async (req, res) => {
     try {
 
-        const products = await Product.find({}).lean();
+        const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
+        const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
+        const endIndex = startIndex + 4; // Calculate the ending index based on the current page
 
+        // Fetch the product data from your database or any other source
+        const products = await Product.find({}).lean(); // Replace this with your actual data retrieval logic
 
+        const totalPages = Math.ceil(products.length / 4); // Calculate the total number of pages
 
-        console.log(products); // Log the products array to check the retrieved data
+        // Slice the products array based on the current page and the number of products per page
+        const displayedProducts = products.slice(startIndex, endIndex);
 
-        res.render('ProductsList', { products });
+        const selectedProducts = []; // Initialize an empty array for selected products
+
+        // Render the EJS template and pass the product data, selected products, and pagination variables
+        res.render('ProductsList', { products: displayedProducts, selectedProducts, currentPage: page, totalPages });
     } catch (error) {
         console.log('Error retrieving products:', error);
         res.status(500).send('Internal Server Error');
@@ -115,10 +127,14 @@ app.post('/add-product', async (req, res) => {
             category: req.body.category,
             title: req.body.title,
             quantity: req.body.quantity,
-            brand: brand,
+            brand: req.body.brand,
             url: req.body.url,
             product_id: req.body.product_id,
             listing_id: req.body.listing_id,
+            highlights: req.body.highlights, // Add highlights field
+            availability: req.body.availability, // Add availability field
+            selling_price: req.body.selling_price, // Add selling_price field
+            original_price: req.body.original_price, // Add original_price field
             avg_rating: 0, // Initialize the rating-related fields to 0
             rating_count: 0,
             review_count: 0,
@@ -127,7 +143,8 @@ app.post('/add-product', async (req, res) => {
             '3_stars_count': 0,
             '4_stars_count': 0,
             '5_stars_count': 0,
-            image: req.body.image
+            image: req.body.image,
+            units: req.body.units // Add units field
         });
 
         await product.save();
@@ -143,3 +160,35 @@ app.post('/add-product', async (req, res) => {
 app.get('/success', (req, res) => {
     res.render('Success.ejs');
 });
+
+
+
+
+
+
+
+
+app.get('/update-product', async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
+        const startIndex = (page - 1) * 20; // Calculate the starting index based on the current page
+        const endIndex = startIndex + 20; // Calculate the ending index based on the current page
+
+        // Fetch the product data from your database or any other source
+        const products = await Product.find({}).lean(); // Replace this with your actual data retrieval logic
+
+        const totalPages = Math.ceil(products.length / 20); // Calculate the total number of pages
+
+        // Slice the products array based on the current page and the number of products per page
+        const displayedProducts = products.slice(startIndex, endIndex);
+
+        const selectedProducts = []; // Initialize an empty array for selected products
+
+        // Render the EJS template and pass the product data, selected products, and pagination variables
+        res.render('UpdateProduct.ejs', { products: displayedProducts, selectedProducts, currentPage: page, totalPages });
+    } catch (error) {
+        console.log('Error fetching products:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+

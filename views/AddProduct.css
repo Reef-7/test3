@@ -1,0 +1,43 @@
+body {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Style form fields */
+.form-control {
+    border-radius: 0;
+    /* Remove border-radius */
+    box-shadow: none;
+    /* Remove box shadow */
+}
+
+/* Add hover effect to buttons */
+.btn-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+/* Adjust padding and margin of elements */
+.container {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Customize typography */
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+}
+
+/* Add a border and box shadow to form fields on focus */
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

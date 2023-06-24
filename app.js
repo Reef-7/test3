@@ -404,4 +404,31 @@ app.post('/Register', async (req, res) => {
 });
 
 
-  // ...
+// ...
+app.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        console.log('Email:', email);
+        console.log('Password:', password);
+
+        // Check if a user with the same email already exists
+        const existingUser = await User.findOne({ email: email });
+        console.log('Existing User:', existingUser);
+
+        if (!existingUser) {
+            return res.status(409).send('There is no user with this email');
+        } else if (existingUser.Password !== password) {
+            console.log('Email and Password do not match');
+            return res.status(401).send('Invalid password');
+        } else if (existingUser.IsAdmin) {
+            // If the user is an admin, display a special message
+            return res.send('Welcome, Admin!');
+        }
+
+        // Redirect to the home page for regular users
+        return res.redirect('/');
+    } catch (error) {
+        console.log('Error Logging In:', error);
+        return res.status(500).send('Internal Server Error');
+    }
+});

@@ -83,6 +83,106 @@ app.get('/product-list', async (req, res) => {
     }
 });
 
+// ...
+
+app.post('/apply-filters', async (req, res) => {
+    try {
+        const filters = {
+            title: req.body.title,
+            category: req.body.category,
+            brand: req.body.brand,
+            quantity: req.body.quantity,
+            url: req.body.url,
+            product_id: req.body.product_id,
+            listing_id: req.body.listing_id,
+            highlights: req.body.highlights,
+            availability: req.body.availability,
+            selling_price: req.body.selling_price,
+            original_price: req.body.original_price,
+            currency: req.body.currency,
+            avg_rating: req.body.avg_rating,
+            rating_count: req.body.rating_count,
+            review_count: req.body.review_count,
+            '1_stars_count': req.body['1_stars_count'],
+            '2_stars_count': req.body['2_stars_count'],
+            '3_stars_count': req.body['3_stars_count'],
+            '4_stars_count': req.body['4_stars_count'],
+            '5_stars_count': req.body['5_stars_count'],
+            image: req.body.image,
+            units: req.body.units
+        };
+
+        const query = {};
+        for (const field in filters) {
+            if (filters[field]) {
+                query[field] = filters[field];
+            }
+        }
+
+        const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
+        const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
+        const endIndex = startIndex + 4; // Calculate the ending index based on the current page
+
+        const products = await Product.find(query).lean();
+        const totalPages = Math.ceil(products.length / 4); // Calculate the total number of pages
+        const displayedProducts = products.slice(startIndex, endIndex); // Slice the products array based on the current page and the number of products per page
+        const selectedProducts = []; // Initialize an empty array for selected products
+        res.render('ProductsList', { products: displayedProducts, selectedProducts, currentPage: page, totalPages });
+    } catch (error) {
+        console.log('Error applying filters:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+app.get('/apply-filters', async (req, res) => {
+    try {
+        const filters = {
+            title: req.query.title,
+            category: req.query.category,
+            brand: req.query.brand,
+            quantity: req.query.quantity,
+            url: req.query.url,
+            product_id: req.query.product_id,
+            listing_id: req.query.listing_id,
+            highlights: req.query.highlights,
+            availability: req.query.availability,
+            selling_price: req.query.selling_price,
+            original_price: req.query.original_price,
+            currency: req.query.currency,
+            avg_rating: req.query.avg_rating,
+            rating_count: req.query.rating_count,
+            review_count: req.query.review_count,
+            '1_stars_count': req.query['1_stars_count'],
+            '2_stars_count': req.query['2_stars_count'],
+            '3_stars_count': req.query['3_stars_count'],
+            '4_stars_count': req.query['4_stars_count'],
+            '5_stars_count': req.query['5_stars_count'],
+            image: req.query.image,
+            units: req.query.units
+        };
+
+        const query = {};
+        for (const field in filters) {
+            if (filters[field]) {
+                query[field] = filters[field];
+            }
+        }
+
+        const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
+        const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
+        const endIndex = startIndex + 4; // Calculate the ending index based on the current page
+
+        const products = await Product.find(query).lean();
+        const totalPages = Math.ceil(products.length / 4); // Calculate the total number of pages
+        const displayedProducts = products.slice(startIndex, endIndex); // Slice the products array based on the current page and the number of products per page
+        const selectedProducts = []; // Initialize an empty array for selected products
+        res.render('ProductsList', { products: displayedProducts, selectedProducts, currentPage: page, totalPages });
+    } catch (error) {
+        console.log('Error applying filters:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// ...
 
 
 app.get('/user-list', async (req, res) => {
@@ -100,8 +200,7 @@ app.get('/user-list', async (req, res) => {
 
 
 
-//Check!!
-app.use(express.urlencoded({ extended: true }));
+
 
 app.get('/add-product', (req, res) => {
     res.render('AddProduct.ejs'); // Replace 'addProduct' with the actual name of your EJS file for adding a product

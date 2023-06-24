@@ -5,7 +5,6 @@
     <title>Product List</title>
     <link rel="stylesheet" href="ProductsList.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -56,7 +55,34 @@
 
     <div class="container">
         <h1>Product List</h1>
-
+        <button type="button" class="btn btn-dark" id="Filter">Filter</button>
+        <div class="filter-form">
+            <form id="filterForm" action="/apply-filters" method="POST">
+                <input type="text" name="title" placeholder="Title">
+                <input type="text" name="category" placeholder="Category">
+                <input type="text" name="brand" placeholder="Brand">
+                <input type="number" name="quantity" placeholder="Quantity" min="0" step="1">
+                <input type="text" name="url" placeholder="URL">
+                <input type="text" name="product_id" placeholder="Product ID">
+                <input type="text" name="listing_id" placeholder="Listing ID">
+                <input type="text" name="highlights" placeholder="Highlights">
+                <input type="text" name="availability" placeholder="Availability">
+                <input type="number" name="selling_price" placeholder="Selling Price" min="0" step="1">
+                <input type="number" name="original_price" placeholder="Original Price" min="0" step="1">
+                <input type="text" name="currency" placeholder="Currency">
+                <input type="number" name="avg_rating" placeholder="Average Rating" min="0" step="0.1">
+                <input type="number" name="rating_count" placeholder="Rating Count" min="0" step="1">
+                <input type="number" name="review_count" placeholder="Review Count" min="0" step="1">
+                <input type="number" name="1_stars_count" placeholder="1 Star Count" min="0" step="1">
+                <input type="number" name="2_stars_count" placeholder="2 Star Count" min="0" step="1">
+                <input type="number" name="3_stars_count" placeholder="3 Star Count" min="0" step="1">
+                <input type="number" name="4_stars_count" placeholder="4 Star Count" min="0" step="1">
+                <input type="number" name="5_stars_count" placeholder="5 Star Count" min="0" step="1">
+                <input type="text" name="image" placeholder="Image URL">
+                <input type="text" name="units" placeholder="Units">
+                <button type="submit" class="btn btn-light" data-mdb-ripple-color="dark">Apply Filter</button>
+            </form>
+        </div>
         <div class="table-responsive">
             <table class="table">
                 <thead class="thead-dark">
@@ -217,6 +243,15 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Filter").click(function () {
+                $("#filterForm").slideToggle();
+            });
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>

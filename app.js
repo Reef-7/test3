@@ -5,6 +5,8 @@ const app = express();
 const path = require('path');
 const port = 3070;
 
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 const mongoose = require('mongoose');
 app.use(express.json());
@@ -353,8 +355,53 @@ app.post('/delete-product', async (req, res) => {
 
 
 
-const bcrypt = require('bcrypt');
-const { v4: uuidv4 } = require('uuid');
 
 
 
+app.post('/Register', async (req, res) => {
+    try {
+        const { first_name, last_name, email, gender, Address, City, Password } = req.body;
+
+
+        // Check if a user with the same email already exists
+        const existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+            // If a user with the same email already exists, send a response indicating the conflict
+            return res.status(409).send('<h1> User with this email already exists </h1>');
+        }
+
+        // Retrieve the last user from the database
+        const lastUser = await User.findOne({}, {}, { sort: { 'id': -1 } });
+
+        // Generate a unique numeric ID for the user
+        const id = lastUser ? lastUser.id + 1 : 1;
+
+        // Create a new user object
+        const user = new User({
+            id,
+            first_name,
+            last_name,
+            email,
+            gender,
+            Address,
+            City,
+            Password,
+            IsAdmin: false
+        });
+
+        // Save the user to the database
+        await user.save();
+
+        res.cookie('userId', id);
+
+        // Redirect to the home page or display a success message
+        res.redirect('/');
+    } catch (error) {
+        console.log('Error registering user:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+  // ...

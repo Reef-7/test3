@@ -72,12 +72,13 @@
 
 
 
-                                <form class="needs-validation w-100" novalidate>
+                                <form class="needs-validation w-100" novalidate action="/Register" method="post">
                                     <div class="form-row row justify-content-center">
                                         <div class="col-md-6 mb-3 ">
                                             <!--Line of Fname and Lname-->
                                             <label for="FnameIn">First name</label>
-                                            <input type="text" class="form-control" id="FnameIn" minlength="2" required>
+                                            <input type="text" class="form-control" id="FnameIn" name="first_name"
+                                                minlength="2" required>
                                             <div class="invalid-feedback">
                                                 First name must be at least 2 characters long.
                                             </div>
@@ -87,7 +88,8 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="LnameIn">Last name</label>
-                                            <input type="text" class="form-control" id="LnameIn" minlength="2" required>
+                                            <input type="text" class="form-control" id="LnameIn" name="last_name"
+                                                minlength="2" required>
                                             <div class="invalid-feedback">
                                                 Last name must be at least 2 characters long.
                                             </div>
@@ -106,7 +108,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text " id="inputGroupPrepend">✉</span>
                                                 </div>
-                                                <input type="email" class="form-control " id="emailIn"
+                                                <input type="email" class="form-control " id="emailIn" name="email"
                                                     placeholder="Somthig@blabla.chipopo"
                                                     aria-describedby="inputGroupPrepend" required>
                                                 <div class="invalid-feedback">
@@ -127,7 +129,7 @@
                                                     <span class="input-group-text " id="cityEmj">🏙</span>
                                                 </div>
 
-                                                <input type="text" class="form-control " id="cityIn"
+                                                <input type="text" class="form-control " id="cityIn" name="City"
                                                     placeholder="London" required>
                                             </div>
 
@@ -139,7 +141,7 @@
                                     <div class="form-row row justify-content-center">
                                         <div class="col-md-6 mb-3">
                                             <label for="inputAddress">Address</label>
-                                            <input type="text" class="form-control " id="inputAddress"
+                                            <input type="text" class="form-control " id="inputAddress" name="Address"
                                                 placeholder="1234 Main St" required>
                                             <div class="invalid-feedback">Enter Adress</div>
                                         </div>
@@ -148,9 +150,9 @@
                                             <label for="floatingSelectGrid">Gender</label>
 
                                             <div class="form-group">
-                                                <select class="form-control " id="genderClick" required>
-                                                    <option value="1">Male</option>
-                                                    <option value="2">Female</option>
+                                                <select class="form-control " id="genderClick" name="gender" required>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
                                                 </select>
 
                                             </div>
@@ -161,7 +163,7 @@
 
                                         <div class="col-md-6 mb-3 ">
                                             <label for="passLabel">Password</label>
-                                            <input type="password" id="passIn" class="form-control"
+                                            <input type="password" id="passIn" class="form-control" name="Password"
                                                 autocomplete="new-password"
                                                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required />
                                             <div class="invalid-feedback">Password must contain at least one

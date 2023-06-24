@@ -422,6 +422,7 @@ app.post('/login', async (req, res) => {
             return res.status(401).send('Invalid password');
         } else if (existingUser.IsAdmin) {
             // If the user is an admin, display a special message
+            console.log('You Are An Admin!');
             return res.send('Welcome, Admin!');
         }
 

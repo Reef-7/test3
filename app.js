@@ -6,13 +6,18 @@ const path = require('path');
 const port = 3070;
 
 
+const mongoose = require('mongoose');
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const db = require('./seeds');//Check!
 const Product = require('./product');//Check!
 const ejs = require('ejs');//Check!
 const User = require('./users');
-const bodyParser = require('body-parser');//check!
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));//new
+
+
 
 
 app.set('view engine', 'ejs'); //Check!
@@ -135,6 +140,7 @@ app.post('/add-product', async (req, res) => {
             availability: req.body.availability, // Add availability field
             selling_price: req.body.selling_price, // Add selling_price field
             original_price: req.body.original_price, // Add original_price field
+            currency: 'ILS',
             avg_rating: 0, // Initialize the rating-related fields to 0
             rating_count: 0,
             review_count: 0,
@@ -248,11 +254,55 @@ app.post('/update-product/:id', async (req, res) => {
 
 
 
+app.get('/delete-product', async (req, res) => {
+    try {
+
+        const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
+        const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
+        const endIndex = startIndex + 4; // Calculate the ending index based on the current page
+
+        // Fetch the product data from your database or any other source
+        const products = await Product.find({}).lean(); // Replace this with your actual data retrieval logic
+
+        const totalPages = Math.ceil(products.length / 4); // Calculate the total number of pages
+
+        // Slice the products array based on the current page and the number of products per page
+        const displayedProducts = products.slice(startIndex, endIndex);
+
+        const selectedProducts = []; // Initialize an empty array for selected products
+
+        // Render the EJS template and pass the product data, selected products, and pagination variables
+        res.render('DeleteProduct', { products: displayedProducts, selectedProducts, currentPage: page, totalPages });
+    } catch (error) {
+        console.log('Error retrieving products:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+
+// ...
+
+app.post('/delete-product', async (req, res) => {
+    try {
+        const selectedProductId = req.body.selectedProduct;
+
+        // Delete the selected product from the database
+        await Product.deleteOne({ product_id: selectedProductId });
+
+        // Redirect to the product list page or display a success message
+        res.redirect('/product-list');
+    } catch (error) {
+        console.log('Error deleting product:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 
 
 const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
-app.use(express.json());
+
 
 

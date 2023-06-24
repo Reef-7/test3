@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Delete Product</title>
+    <!-- Include necessary CSS and JavaScript libraries -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">BloomBoost</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Users
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/user-list">List</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Products
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/add-product">Add New</a>
+                        <a class="dropdown-item" href="/update-product">Update</a>
+                        <a class="dropdown-item" href="#">Delete</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/product-list">List</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Delete Products</h1>
+        <!-- Add the delete product form -->
+        <form action="/delete-product" method="POST" id="deleteForm">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Select</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Brand</th>
+                            <th>Quantity</th>
+                            <th>URL</th>
+                            <th>Product ID</th>
+                            <th>Listing ID</th>
+                            <th>Highlights</th>
+                            <th>Availability</th>
+                            <th>Selling Price</th>
+                            <th>Original Price</th>
+                            <th>Currency</th>
+                            <th>Average Rating</th>
+                            <th>Rating Count</th>
+                            <th>Review Count</th>
+                            <th>1 Star Count</th>
+                            <th>2 Star Count</th>
+                            <th>3 Star Count</th>
+                            <th>4 Star Count</th>
+                            <th>5 Star Count</th>
+                            <th>Image</th>
+                            <th>Units</th>
+                            <!-- Add more table headers for other properties -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% products.forEach(function(product) { %>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="selectedProduct" value="<%= product.product_id %>">
+                                </td>
+                                <td>
+                                    <%= product.title %>
+                                </td>
+                                <td>
+                                    <%= product.category %>
+                                </td>
+                                <td>
+                                    <%= product.brand %>
+                                </td>
+                                <td>
+                                    <%= product.quantity %>
+                                </td>
+                                <td>
+                                    <%= product.url %>
+                                </td>
+                                <td>
+                                    <%= product.product_id %>
+                                </td>
+                                <td>
+                                    <%= product.listing_id %>
+                                </td>
+                                <td>
+                                    <%= product.highlights %>
+                                </td>
+                                <td>
+                                    <%= product.availability %>
+                                </td>
+                                <td>
+                                    <%= product.selling_price %>
+                                </td>
+                                <td>
+                                    <%= product.original_price %>
+                                </td>
+                                <td>
+                                    <%= product.currency %>
+                                </td>
+                                <td>
+                                    <%= product.avg_rating %>
+                                </td>
+                                <td>
+                                    <%= product.rating_count %>
+                                </td>
+                                <td>
+                                    <%= product.review_count %>
+                                </td>
+                                <td>
+                                    <%= product['1_stars_count'] %>
+                                </td>
+                                <td>
+                                    <%= product['2_stars_count'] %>
+                                </td>
+                                <td>
+                                    <%= product['3_stars_count'] %>
+                                </td>
+                                <td>
+                                    <%= product['4_stars_count'] %>
+                                </td>
+                                <td>
+                                    <%= product['5_stars_count'] %>
+                                </td>
+                                <td>
+                                    <img src="<%= product.image %>" alt="<%= product.title %>"
+                                        style="max-width: 100px; max-height: 100px;">
+                                </td>
+                                <td>
+                                    <%= product.units %>
+                                </td>
+                                <!-- Add more table cells for other properties -->
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <nav>
+                <ul class="pagination">
+                    <% if (currentPage> 1) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<%= currentPage - 1 %>">&laquo;</a>
+                        </li>
+                        <% } %>
+                            <% for (let i=1; i <=totalPages; i++) { %>
+                                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                    <a class="page-link" href="?page=<%= i %>">
+                                        <%= i %>
+                                    </a>
+                                </li>
+                                <% } %>
+                                    <% if (currentPage < totalPages) { %>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=<%= currentPage + 1 %>">&raquo;</a>
+                                        </li>
+                                        <% } %>
+                </ul>
+            </nav>
+
+            <!-- Add the delete confirmation section -->
+            <div id="confirmation" style="display: none;">
+                <p>Are you sure you want to delete the selected products?</p>
+                <button type="button" class="btn btn-primary" id="confirmDelete">Yes</button>
+                <button type="button" class="btn btn-secondary" id="cancelDelete">No</button>
+            </div>
+            <!-- Add the delete button -->
+            <button type="button" class="btn btn-danger" id="deleteButton">Delete</button>
+        </form>
+    </div>
+    <script>
+        // Wait for the document to be ready
+        $(document).ready(function () {
+            $("#deleteButton").click(function () {
+                var selectedProduct = $("input[name='selectedProduct']:checked").val();
+
+
+                if (selectedProduct === undefined) {
+                    alert("You must select a product to delete!");
+                    return;
+                }
+
+                $("#confirmation").show();
+            });
+
+            $("#confirmDelete").click(function () {
+                $("#deleteForm").submit();
+
+            });
+
+            $("#cancelDelete").click(function () {
+                $("input[name='product']").prop("checked", false);
+                $("#confirmation").hide();
+            });
+        });
+
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

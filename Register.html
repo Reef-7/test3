@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="Register.css">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="Register.css">
     <title>Register</title>
 </head>
 
@@ -62,75 +63,124 @@
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container h-100" id="signupcontainer">
                 <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                        <div class="card" style="border-radius: 15px;">
-                            <div class="card-body p-5">
-                                <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+                    <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+                        <div class="card" class="card d-flex align-items-center justify-content-center text-center">
+                            <div class="card-body p-5   ">
+                                <h1 class="text-uppercase  mb-4 d-flex justify-content-center">Create an account
+                                </h1>
 
-                                <form class="needs-validation" novalidate>
-                                    <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="validationCustom01">First name</label>
-                                            <input type="text" class="form-control" id="validationCustom01" required>
+
+
+
+                                <form class="needs-validation w-100" novalidate>
+                                    <div class="form-row row justify-content-center">
+                                        <div class="col-md-6 mb-3 ">
+                                            <!--Line of Fname and Lname-->
+                                            <label for="FnameIn">First name</label>
+                                            <input type="text" class="form-control" id="FnameIn" minlength="2" required>
+                                            <div class="invalid-feedback">
+                                                First name must be at least 2 characters long.
+                                            </div>
                                             <div class="valid-feedback">
                                                 Looks good!
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Last name</label>
-                                            <input type="text" class="form-control" id="validationCustom02" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="validationCustomUsername">Email</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                            <label for="LnameIn">Last name</label>
+                                            <input type="text" class="form-control" id="LnameIn" minlength="2" required>
+                                            <div class="invalid-feedback">
+                                                Last name must be at least 2 characters long.
                                             </div>
-                                            <input type="text" class="form-control" id="validationCustomUsername"
-                                                placeholder="Your Email" aria-describedby="inputGroupPrepend" required>
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-row">
+
+
+                                    <div class="form-row row justify-content-center">
+                                        <!--Line of email and city-->
+                                        <div class="col-md-6 mb-3 ">
+                                            <label for="validationCustomEmail">Email</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text " id="inputGroupPrepend">✉</span>
+                                                </div>
+                                                <input type="email" class="form-control " id="emailIn"
+                                                    placeholder="Somthig@blabla.chipopo"
+                                                    aria-describedby="inputGroupPrepend" required>
+                                                <div class="invalid-feedback">
+                                                    It dosen't fit the emeil pattern
+                                                </div>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom03">City</label>
-                                            <input type="text" class="form-control" id="validationCustom03"
-                                                placeholder="London" required>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text " id="cityEmj">🏙</span>
+                                                </div>
+
+                                                <input type="text" class="form-control " id="cityIn"
+                                                    placeholder="London" required>
+                                            </div>
+
                                         </div>
+
+                                    </div>
+
+
+                                    <div class="form-row row justify-content-center">
                                         <div class="col-md-6 mb-3">
                                             <label for="inputAddress">Address</label>
-                                            <input type="text" class="form-control" id="inputAddress"
-                                                placeholder="1234 Main St">
+                                            <input type="text" class="form-control " id="inputAddress"
+                                                placeholder="1234 Main St" required>
+                                            <div class="invalid-feedback">Enter Adress</div>
                                         </div>
-                                    </div>
-                                    <div class="form-row">
+
                                         <div class="col-md-6 mb-3">
+                                            <label for="floatingSelectGrid">Gender</label>
+
                                             <div class="form-group">
-                                                <select class="form-select" id="floatingSelectGrid"
-                                                    aria-label="Floating label select example">
-                                                    <option selected>Gender</option>
+                                                <select class="form-control " id="genderClick" required>
                                                     <option value="1">Male</option>
                                                     <option value="2">Female</option>
                                                 </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <div class="form-outline mb-4">
-                                                <label class="form-label" for="form3Example4cg">Password</label>
-                                                <input type="password" id="form3Example4cg"
-                                                    class="form-control form-control-lg" />
-                                            </div>
 
-                                            <div class="form-outline mb-4">
-                                                <label class="form-label" for="form3Example4cdg">Repeat your
-                                                    password</label>
-                                                <input type="password" id="form3Example4cdg"
-                                                    class="form-control form-control-lg" />
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="form-check">
+
+                                    <div class="form-row row justify-content-center">
+
+                                        <div class="col-md-6 mb-3 ">
+                                            <label for="passLabel">Password</label>
+                                            <input type="password" id="passIn" class="form-control"
+                                                autocomplete="new-password"
+                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required />
+                                            <div class="invalid-feedback">Password must contain at least one
+                                                uppercase letter, one special character and be at least 8 characters
+                                                long</div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="RpassLabel">Repeat your password</label>
+                                            <input type="password" id="RpassIn" class="form-control "
+                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required />
+                                            <div class="invalid-feedback">You need to enterr the same password!!!
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group form-row row justify-content-center">
+                                        <div class="form-check col-md-6 mb-3">
                                             <input class="form-check-input" type="checkbox" value="" id="invalidCheck"
                                                 required>
                                             <label class="form-check-label" for="invalidCheck">
@@ -146,7 +196,8 @@
                                     </div>
 
                                     <p class="text-center text-muted mt-5 mb-0">Have already an account? <a
-                                            href="login.html" class="fw-bold text-body"><u>Login here</u></a></p>
+                                            href="login.html" class="fw-bold text-body"><u>Login here</u></a>
+                                    </p>
 
                                 </form>
 
@@ -220,8 +271,6 @@
                             </p>
                         </div>
 
-
-
                         <div class="col-md-5 col-12">
 
                             <div class="form-outline form-white mb-4">
@@ -252,7 +301,7 @@
 
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(44, 14, 238, 0.721);">
-            © 2020 Copyright:
+            © 2020 Copyright: Gaya & Riff & Anael
             <a class="text-white" href="https://mdbootstrap.com/">BloomBoost</a>
         </div>
         <!-- Copyright -->
@@ -262,10 +311,12 @@
     <!--Footer -->
 
 
-    <script src="app.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
+    <script src="Register.js"></script>
+    <script src="app.js"></script>
 </body>
 
 </html>

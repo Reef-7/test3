@@ -246,3 +246,13 @@ app.post('/update-product/:id', async (req, res) => {
     }
 });
 
+
+
+
+
+
+const bcrypt = require('bcrypt');
+const { v4: uuidv4 } = require('uuid');
+app.use(express.json());
+
+

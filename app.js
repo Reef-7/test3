@@ -415,18 +415,19 @@ app.post('/login', async (req, res) => {
         const existingUser = await User.findOne({ email: email });
         console.log('Existing User:', existingUser);
 
-        if (!existingUser) {
-            return res.status(409).send('There is no user with this email');
+        if (existingUser == null) {
+            console.log('There is no user with this email');
         } else if (existingUser.Password !== password) {
             console.log('Email and Password do not match');
             return res.status(401).send('Invalid password');
         } else if (existingUser.IsAdmin) {
             // If the user is an admin, display a special message
             console.log('You Are An Admin!');
-            return res.send('Welcome, Admin!');
+
         }
 
         // Redirect to the home page for regular users
+        console.log('Welcome' + ' ' + existingUser.first_name + ' ' + existingUser.last_name);
         return res.redirect('/');
     } catch (error) {
         console.log('Error Logging In:', error);

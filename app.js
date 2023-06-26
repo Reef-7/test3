@@ -477,3 +477,16 @@ app.get('/UserHome', async (req, res) => {
     }
 });
 
+
+
+app.get('/product/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const product = await Product.findById(id);
+        res.render('Product', { product });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error retrieving product details.');
+    }
+});

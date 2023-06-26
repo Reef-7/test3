@@ -5,8 +5,53 @@ const app = express();
 const path = require('path');
 const port = 3070;
 
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());
+
+
+
+const cookieParser = require('cookie-parser');//is needed?
+app.use(cookieParser());//is needed?
+
+
+app.set('trust proxy', 1);
+
+const session = require('express-session');
+
+
+
+
+// Configure session middleware with FileStore
+
+const MongoDBStore = require('connect-mongodb-session')(session);
+
+const store = new MongoDBStore({
+    uri: 'mongodb+srv://rifstudy7:B7Kdrz4TRPY3jpZz@cluster0.s7ccuri.mongodb.net/',
+    collection: 'sessions',
+});
+
+store.on('error', function (error) {
+    console.log('MongoDB session store error:', error);
+});
+
+app.use(
+    session({
+        secret: 'your-secret-key',
+        resave: false,
+        saveUninitialized: false,
+        store: store,
+        cookie: {
+            path: '/',
+        },
+    })
+);
+
+
+
+
+
+
+
+
+
 
 const mongoose = require('mongoose');
 app.use(express.json());
@@ -18,6 +63,8 @@ const User = require('./users');
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));//new
+
+
 
 
 
@@ -221,6 +268,16 @@ app.get('/success', (req, res) => {
 
 
 app.get('/login', (req, res) => {
+    if (req.session && req.session.user) {
+        // User is already logged in
+        const loggedInUser = req.session.user;
+        if (loggedInUser.IsAdmin) {
+            return res.redirect('/AdminHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
+        }
+        return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
+    }
+
+    // User is not logged in, show the login page
     res.render('login.ejs');
 });
 
@@ -283,12 +340,13 @@ app.post('/update-product/:id', async (req, res) => {
     if (req.body.original_price) {
         updates.original_price = req.body.original_price;
     }
+    if (req.body.image) { //check!!
+        updates.image = req.body.image;
+    }
     if (req.body.units) {
         updates.units = req.body.units;
     }
-    if (req.body.image) {
-        updates.image = req.body.image;
-    }
+
 
     try {
         const updatedProduct = await Product.findByIdAndUpdate(productId, updates, { new: true });
@@ -392,7 +450,7 @@ app.post('/Register', async (req, res) => {
         // Save the user to the database
         await user.save();
 
-        res.cookie('userId', id);
+
 
         // Redirect to the home page or display a success message
         res.redirect('/');
@@ -423,18 +481,26 @@ app.post('/login', async (req, res) => {
         } else if (existingUser.IsAdmin) {
             // If the user is an admin, display a special message
             console.log('You Are An Admin!');
+            if (!req.session.user) {
+                req.session.user = existingUser; // Store the user object in the session
+            }
+            console.log(req.session);
             return res.redirect('/AdminHome?name=' + existingUser.first_name + ' ' + existingUser.last_name);
-
         }
 
-        // Redirect to the home page for regular users
-        console.log('Welcome' + ' ' + existingUser.first_name + ' ' + existingUser.last_name);
+        // If the user is a regular user
+        if (!req.session.user) {
+            req.session.user = existingUser; // Store the user object in the session
+        }
+        console.log(req.session);
         return res.redirect('/UserHome?name=' + existingUser.first_name + ' ' + existingUser.last_name);
     } catch (error) {
         console.log('Error Logging In:', error);
         return res.status(500).send('Internal Server Error');
     }
 });
+
+
 
 app.get('/error', (req, res) => {
     const { error } = req.query;
@@ -489,4 +555,30 @@ app.get('/product/:id', async (req, res) => {
         console.error(error);
         res.status(500).send('Error retrieving product details.');
     }
+});
+
+
+
+app.post('/add-to-favorites', (req, res) => {
+    const productId = req.body.productId;
+    const user = req.session.user;
+
+    if (!req.session.favorites) {
+        req.session.favorites = {}; // Create favorites object if it doesn't exist
+    }
+
+    req.session.favorites[user.id] = req.session.favorites[user.id] || [];
+    req.session.favorites[user.id].push(productId);
+
+    res.sendStatus(200);
+});
+
+
+app.get('/logout', (req, res) => {
+    // Perform logout actions here, such as clearing the session or removing the user's authentication token
+    // For example, if you're using Express sessions, you can use the following line to destroy the session:
+    req.session.destroy();
+
+    // Redirect the user to the homepage or any other desired page
+    res.redirect('/');
 });

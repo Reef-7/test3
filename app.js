@@ -559,18 +559,29 @@ app.get('/product/:id', async (req, res) => {
 
 
 
-app.post('/add-to-favorites', (req, res) => {
+app.post('/add-to-favorites', async (req, res) => {
     const productId = req.body.productId;
     const user = req.session.user;
+    const userId = req.session.user.id;
 
-    if (!req.session.favorites) {
-        req.session.favorites = {}; // Create favorites object if it doesn't exist
+
+    try {
+        const user = await User.findOne({ id: userId });
+
+        if (!user) {
+            // Handle case when user is not found
+            return res.status(404).send('User not found');
+        }
+
+
+        user.favorites.push(productId);
+        await user.save();
+
+        res.sendStatus(200);
+    } catch (error) {
+        console.error('Error adding to favorites:', error);
+        res.status(500).send('Internal Server Error');
     }
-
-    req.session.favorites[user.id] = req.session.favorites[user.id] || [];
-    req.session.favorites[user.id].push(productId);
-
-    res.sendStatus(200);
 });
 
 

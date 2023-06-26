@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
     Address: String,
     City: String,
     Password: String,
-    IsAdmin: Boolean
+    IsAdmin: Boolean,
+    favorites: [String]
 });
 
 const User = mongoose.model('users', userSchema);

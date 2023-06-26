@@ -32,9 +32,6 @@ app.get('/', (req, res) => {
     //res.send('hi');
     res.sendFile(path.join(__dirname, 'home.html'));
 })
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'));
-})
 
 app.get('/Products', (req, res) => {
     res.sendFile(path.join(__dirname, 'Products.html'));
@@ -223,7 +220,9 @@ app.get('/success', (req, res) => {
 
 
 
-
+app.get('/login', (req, res) => {
+    res.render('login.ejs');
+});
 
 
 
@@ -404,7 +403,7 @@ app.post('/Register', async (req, res) => {
 });
 
 
-// ...
+
 app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -417,20 +416,64 @@ app.post('/login', async (req, res) => {
 
         if (existingUser == null) {
             console.log('There is no user with this email');
+            return res.redirect('/error?error=noUser');
         } else if (existingUser.Password !== password) {
             console.log('Email and Password do not match');
-            return res.status(401).send('Invalid password');
+            return res.redirect('/error?error=wrongCredentials');
         } else if (existingUser.IsAdmin) {
             // If the user is an admin, display a special message
             console.log('You Are An Admin!');
+            return res.redirect('/AdminHome?name=' + existingUser.first_name + ' ' + existingUser.last_name);
 
         }
 
         // Redirect to the home page for regular users
         console.log('Welcome' + ' ' + existingUser.first_name + ' ' + existingUser.last_name);
-        return res.redirect('/');
+        return res.redirect('/UserHome?name=' + existingUser.first_name + ' ' + existingUser.last_name);
     } catch (error) {
         console.log('Error Logging In:', error);
         return res.status(500).send('Internal Server Error');
     }
 });
+
+app.get('/error', (req, res) => {
+    const { error } = req.query;
+    let errorMessage = '';
+
+    if (error === 'noUser') {
+        errorMessage = 'User with that email does not exist.';
+    } else if (error === 'wrongCredentials') {
+        errorMessage = 'Email and password do not match.';
+    } else {
+        errorMessage = 'An unknown error occurred.';
+    }
+
+    res.render('error', { message: errorMessage });
+});
+
+
+app.get('/AdminHome', (req, res) => {
+    const { name } = req.query;
+    let HelloMessage = 'Welcome ' + name;
+
+
+
+    res.render('AdminHome', { message: HelloMessage });
+});
+
+
+app.get('/UserHome', async (req, res) => {
+    try {
+        const { name } = req.query;
+        const HelloMessage = 'Welcome Back ' + name;
+
+        // Fetch 8 random products from the collection
+        const products = await Product.aggregate([{ $sample: { size: 8 } }]);
+
+        res.render('UserHome', { message: HelloMessage, products });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+

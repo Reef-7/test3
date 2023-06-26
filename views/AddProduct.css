@@ -1,0 +1,97 @@
+body {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Style form fields */
+.form-control {
+    border-radius: 0;
+    /* Remove border-radius */
+    box-shadow: none;
+    /* Remove box shadow */
+}
+
+/* Add hover effect to buttons */
+.btn-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+/* Adjust padding and margin of elements */
+.container {
+    padding: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Customize typography */
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+}
+
+/* Add a border and box shadow to form fields on focus */
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.card {
+    margin-top: 10px;
+
+}
+
+.gradient-custom-3 {
+    /* fallback for old browsers */
+    background: #84fab0;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+}
+
+.gradient-custom-4 {
+    /* fallback for old browsers */
+    background: #84fab0;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+}
+
+.vh-100 {
+    background-color: #84fab0;
+
+}
+
+#addProdcontainer {
+
+    background-image: url('https://st4.depositphotos.com/4393147/37814/i/1600/depositphotos_378142630-stock-photo-beautiful-nature-view-green-leaf.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 80vh;
+    /*uses scroll up and down*/
+    overflow-y: auto;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    max-width: 100%;
+    height: auto;
+    overflow: auto;
+}
+
+.text-uppercase {
+    color: #84fab0;
+    text-shadow: 5px 5px 10px #16FF00;
+}

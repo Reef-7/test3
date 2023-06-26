@@ -585,6 +585,33 @@ app.post('/add-to-favorites', async (req, res) => {
 });
 
 
+app.post('/remove-from-favorites', async (req, res) => {
+    const productId = req.body.productId;
+    const userId = req.session.user.id;
+
+    try {
+        const user = await User.findOne({ id: userId });
+
+        if (!user) {
+            // Handle case when user is not found
+            return res.status(404).send('User not found');
+        }
+
+        const index = user.favorites.indexOf(productId);
+        if (index !== -1) {
+            user.favorites.splice(index, 1); // Remove the productId from the favorites array
+            await user.save();
+        }
+
+        res.sendStatus(200);
+    } catch (error) {
+        console.error('Error removing from favorites:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+
 app.get('/logout', (req, res) => {
     // Perform logout actions here, such as clearing the session or removing the user's authentication token
     // For example, if you're using Express sessions, you can use the following line to destroy the session:

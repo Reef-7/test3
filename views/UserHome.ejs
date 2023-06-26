@@ -311,12 +311,21 @@
             $('.favorite-button').click(function () {
                 const button = $(this);
                 const productId = button.data('product-id');
-
-                $.post('/add-to-favorites', { productId }, function (data) {
-                    // Update the UI to reflect the product as a favorite
-                    button.find('.empty-heart-icon').removeClass('empty-heart-icon').addClass('filled-heart-icon');
-                });
+                var icon = $(this).find("i");
+                if (icon.hasClass("empty-heart-icon")) {
+                    $.post('/add-to-favorites', { productId }, function (data) {
+                        // Update the UI to reflect the product as a favorite
+                        icon.removeClass('empty-heart-icon').addClass('filled-heart-icon');
+                    });
+                }
+                else {
+                    $.post('/remove-from-favorites', { productId }, function (data) {
+                        // Update the UI to reflect the product as a favorite
+                        icon.removeClass('filled-heart-icon').addClass('empty-heart-icon');
+                    });
+                }
             });
+
         });
     </script>
 </body>

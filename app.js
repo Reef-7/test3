@@ -782,10 +782,12 @@ app.get('/cart', async (req, res) => {
                 const product = await Product.findById(item.product);
                 return {
                     ...item,
+                    id: product._id,
                     image: product.image,
                     title: product.title,
                     highlights: product.highlights,
                     quantity: item.units, // Include the quantity from the session
+                    available: product.units
                 };
             })
         );
@@ -796,3 +798,38 @@ app.get('/cart', async (req, res) => {
         res.status(500).json({ error: 'An error occurred' });
     }
 });
+
+
+
+app.post('/removefromcart/:id', async (req, res) => {
+    const { id } = req.params;
+    const cart = req.session.cart || [];
+
+    // Remove the product with the given id from the cart
+    req.session.cart = cart.filter((item) => item.product.toString() !== id);
+
+    try {
+        // Fetch the details of each remaining product in the cart from the product collection
+        const productDetails = await Promise.all(
+            req.session.cart.map(async (item) => {
+                const product = await Product.findById(item.product);
+                return {
+                    ...item,
+                    id: product._id,
+                    image: product.image,
+                    title: product.title,
+                    highlights: product.highlights,
+                    quantity: item.units, // Include the quantity from the session
+                    available: product.units
+                };
+            })
+        );
+
+        res.render('cart', { cart: productDetails });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+
+

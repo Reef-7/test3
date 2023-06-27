@@ -132,42 +132,48 @@
 
     </nav>
 
-    <form action="/checkout" method="post">
-        <div class="container cart-container">
-            <% cart.forEach((item)=> { %>
-                <div class="cart-item">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <img src="<%= item.image %>">
-                        </div>
-                        <div class="col-md-6 item-info">
-                            <h5>
-                                <%= item.title %>
-                            </h5>
-                            <p>
-                                <%= item.highlights %>
-                            </p>
-                        </div>
-                        <div class="col-md-3">
-                            <p class="item-price">
-                                <%= item.price %> ₪
-                            </p>
-                            <p class="item-quantity">Quantity: <%= item.units %>
-                            </p>
-                            <button class="btn btn-remove">Remove</button>
-                        </div>
+
+    <div class="container cart-container">
+        <% cart.forEach((item)=> { %>
+            <div class="cart-item">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="<%= item.image %>">
+                    </div>
+                    <div class="col-md-6 item-info">
+                        <h5>
+                            <%= item.title %>
+                        </h5>
+                        <p>
+                            <%= item.highlights %>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="item-price">
+                            <%= item.price %> ₪
+                        </p>
+                        <p class="item-quantity">Quantity:
+                            <input type="number" name="quantity" min="0" max="<%= item.available %>"
+                                value="<%= item.quantity %>">
+                        </p>
+                        <form action="/removefromcart/<%= item.id %>" method="post">
+                            <button class="btn btn-remove" type="submit">Remove</button>
+                        </form>
+
                     </div>
                 </div>
-                <% }) %>
-
+            </div>
+            <% }) %>
+                <form action="/checkout" method="post">
                     <div class="cart-total">
                         Total:
                     </div>
                     <div class="text-center">
-                        <button class="custom-btn">Checkout</button>
+                        <button class="custom-btn" type="submit">Checkout</button>
                     </div>
-        </div>
+    </div>
     </form>
+
 
 
     <footer class="bg-dark text-center text-white">

@@ -771,6 +771,28 @@ app.post('/add-to-cart/:id', async (req, res) => {
 
 
 
-app.get('/cart', (req, res) => {
+app.get('/cart', async (req, res) => {
+    // Retrieve the cart from the session
+    const cart = req.session.cart || [];
 
-})
+    try {
+        // Fetch the details of each product in the cart from the product collection
+        const productDetails = await Promise.all(
+            cart.map(async (item) => {
+                const product = await Product.findById(item.product);
+                return {
+                    ...item,
+                    image: product.image,
+                    title: product.title,
+                    highlights: product.highlights,
+                    quantity: item.units, // Include the quantity from the session
+                };
+            })
+        );
+
+        res.render('cart', { cart: productDetails });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});

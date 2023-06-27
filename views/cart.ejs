@@ -134,36 +134,41 @@
 
     <form action="/checkout" method="post">
         <div class="container cart-container">
-            <% .forEach(()=> { %>
+            <% cart.forEach((item)=> { %>
                 <div class="cart-item">
                     <div class="row">
                         <div class="col-md-3">
-                            <img src="" alt="Product Image">
+                            <img src="<%= item.image %>">
                         </div>
                         <div class="col-md-6 item-info">
                             <h5>
-
+                                <%= item.title %>
                             </h5>
-                            <p></p>
+                            <p>
+                                <%= item.highlights %>
+                            </p>
                         </div>
                         <div class="col-md-3">
-                            <p class="item-price"></p>
-                            <p class="item-quantity">Quantity:</p>
+                            <p class="item-price">
+                                <%= item.price %> ₪
+                            </p>
+                            <p class="item-quantity">Quantity: <%= item.units %>
+                            </p>
                             <button class="btn btn-remove">Remove</button>
                         </div>
                     </div>
                 </div>
+                <% }) %>
 
-                <!-- Repeat the cart-item section for each product in the cart -->
-
-                <div class="cart-total">
-                    Total:
-                </div>
-                <div class="text-center">
-                    <button class="custom-btn">Checkout</button>
-                </div>
+                    <div class="cart-total">
+                        Total:
+                    </div>
+                    <div class="text-center">
+                        <button class="custom-btn">Checkout</button>
+                    </div>
         </div>
     </form>
+
 
     <footer class="bg-dark text-center text-white">
 

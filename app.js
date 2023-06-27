@@ -620,3 +620,34 @@ app.get('/logout', (req, res) => {
     // Redirect the user to the homepage or any other desired page
     res.redirect('/');
 });
+
+
+app.get('/favorites', async (req, res) => {
+    try {
+        // Fetch the user document based on the logged-in user or any other identifier
+        const userId = req.session.user.id; // Assuming you have a logged-in user and can access the user ID
+        const user = await User.findOne({ id: userId });
+
+        // Access the favorites array from the user document
+        const favorites = user.favorites;
+
+        // Find the products with matching product_id values in the favorites array
+
+        const favoriteProducts = [];
+        for (let i = 0; i < favorites.length; i++) {
+            const product = await Product.findById(favorites[i]);
+            favoriteProducts.push(product);
+        }
+
+
+
+        // Pass the favorite products array to the favorites page template and render the page
+        console.log(favoriteProducts);
+        res.render('favorites.ejs', { favoriteProducts });
+    } catch (error) {
+        // Handle any errors
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+

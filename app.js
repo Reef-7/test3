@@ -106,6 +106,17 @@ app.get('/Register', (req, res) => {
 
 app.get('/product-list', async (req, res) => {
     try {
+        if (req.session && req.session.user) {
+            const loggedInUser = req.session.user;
+
+            // Check if the user is an admin
+            if (!loggedInUser.isAdmin) {
+                return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
+            }
+        } else {
+            // Redirect the user to the login page or show an error message
+            return res.redirect('/login');
+        }
 
         const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
         const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
@@ -186,6 +197,17 @@ app.post('/product-list', async (req, res) => {
 
 app.get('/user-list', async (req, res) => {
     try {
+        if (req.session && req.session.user) {
+            const loggedInUser = req.session.user;
+
+            // Check if the user is an admin
+            if (!loggedInUser.isAdmin) {
+                return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
+            }
+        } else {
+            // Redirect the user to the login page or show an error message
+            return res.redirect('/login');
+        }
         const users = await User.find({}).lean();
 
         console.log(users); // Log the users array to check the retrieved data
@@ -202,12 +224,24 @@ app.get('/user-list', async (req, res) => {
 
 
 app.get('/add-product', (req, res) => {
+    if (req.session && req.session.user) {
+        const loggedInUser = req.session.user;
+
+        // Check if the user is an admin
+        if (!loggedInUser.isAdmin) {
+            return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
+        }
+    } else {
+        // Redirect the user to the login page or show an error message
+        return res.redirect('/login');
+    }
     res.render('AddProduct.ejs'); // Replace 'addProduct' with the actual name of your EJS file for adding a product
 });
 
 
 app.post('/add-product', async (req, res) => {
     try {
+
         const { title, category, brand, quantity, url, highlights, availability, selling_price, original_price, units, listing_id, product_id, image } = req.body;
 
         // Check if the product_id and listing_id are unique
@@ -286,6 +320,17 @@ app.get('/login', (req, res) => {
 
 app.get('/update-product', async (req, res) => {
     try {
+        if (req.session && req.session.user) {
+            const loggedInUser = req.session.user;
+
+            // Check if the user is an admin
+            if (!loggedInUser.isAdmin) {
+                return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
+            }
+        } else {
+            // Redirect the user to the login page or show an error message
+            return res.redirect('/login');
+        }
         const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
         const startIndex = (page - 1) * 20; // Calculate the starting index based on the current page
         const endIndex = startIndex + 20; // Calculate the ending index based on the current page
@@ -369,6 +414,17 @@ app.get('/delete-product', async (req, res) => {
 
     try {
 
+        if (req.session && req.session.user) {
+            const loggedInUser = req.session.user;
+
+            // Check if the user is an admin
+            if (!loggedInUser.isAdmin) {
+                return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
+            }
+        } else {
+            // Redirect the user to the login page or show an error message
+            return res.redirect('/login');
+        }
         const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
         const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
         const endIndex = startIndex + 4; // Calculate the ending index based on the current page

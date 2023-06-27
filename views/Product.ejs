@@ -138,6 +138,10 @@
             font-family: FontAwesome;
 
         }
+
+        .hide-stars {
+            display: none;
+        }
     </style>
 
 </head>
@@ -215,35 +219,40 @@
             <div class="col-md-6">
                 <div class="product-details-sidebar">
                     <div class="product-sidebar-content">
-                        <div class="product-sidebar-unit">
-                            <label for="unit-input">Number of Units:</label>
-                            <input type="number" id="unit-input" name="unit-input" step="1" min="0"
-                                max="<%= product.units %>">
-                        </div>
-                        <div class="product-sidebar-add-to-cart">
-                            <button class="btn btn-success">Add to Cart</button>
-                        </div>
-                        <div class="product-sidebar-shipping">
-                            <span class="free-shipping-text">
-                                <i class="fa fa-truck  fa-2x"></i> <span class="shipping-label"
-                                    style="font-size: 1.2em;">Free Shipping</span>
-                            </span>
-                            </span>
-                        </div>
+                        <form method="POST" action="/add-to-cart/<%= product._id %>">
+                            <input type="hidden" name="productId" value="<%= product._id %>">
+                            <div class="product-sidebar-unit">
+                                <label for="unit-input">Number of Units:</label>
+                                <input type="number" id="unit-input" name="units" step="1" min="0"
+                                    max="<%= product.units %>">
+                            </div>
+                            <div class="product-sidebar-add-to-cart">
+                                <button class="btn btn-success">Add to Cart</button>
+                            </div>
+                            <div class="product-sidebar-shipping">
+                                <span class="free-shipping-text">
+                                    <i class="fa fa-truck  fa-2x"></i> <span class="shipping-label"
+                                        style="font-size: 1.2em;">Free Shipping</span>
+                                </span>
+
+                            </div>
+                        </form>
                         <div class="product-sidebar-rating">
-                            <div class="stars">
-                                <form action="">
-                                    <input class="star star-5" id="star-5" type="radio" name="star" />
-                                    <label class="star star-5" for="star-5"></label>
-                                    <input class="star star-4" id="star-4" type="radio" name="star" />
-                                    <label class="star star-4" for="star-4"></label>
-                                    <input class="star star-3" id="star-3" type="radio" name="star" />
-                                    <label class="star star-3" for="star-3"></label>
-                                    <input class="star star-2" id="star-2" type="radio" name="star" />
-                                    <label class="star star-2" for="star-2"></label>
-                                    <input class="star star-1" id="star-1" type="radio" name="star" />
-                                    <label class="star star-1" for="star-1"></label>
-                                </form>
+                            <div class="product-sidebar-rating hide-stars">
+                                <div class="stars">
+                                    <form action="">
+                                        <input class="star star-5" id="star-5" type="radio" name="star" />
+                                        <label class="star star-5" for="star-5"></label>
+                                        <input class="star star-4" id="star-4" type="radio" name="star" />
+                                        <label class="star star-4" for="star-4"></label>
+                                        <input class="star star-3" id="star-3" type="radio" name="star" />
+                                        <label class="star star-3" for="star-3"></label>
+                                        <input class="star star-2" id="star-2" type="radio" name="star" />
+                                        <label class="star star-2" for="star-2"></label>
+                                        <input class="star star-1" id="star-1" type="radio" name="star" />
+                                        <label class="star star-1" for="star-1"></label>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -437,6 +446,13 @@
 
 
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('.product-sidebar-add-to-cart button').click(function () {
+                        $('.product-sidebar-rating').removeClass('hide-stars');
+                    });
+                });
+            </script>
 </body>
 
 </html>

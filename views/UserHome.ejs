@@ -175,7 +175,13 @@
                                         <!-- Product actions-->
                                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                             <div class="text-center">
-                                                <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
+                                                <form method="POST"
+                                                    action="/add-to-cart/<%= product._id %>?onSale=<%= isOnSale %>">
+                                                    <input type="number" id="unit-input" name="units" step="1" min="0"
+                                                        max="<%= product.units %>">
+                                                    <button type="submit" class="btn btn-outline-dark mt-auto">Add to
+                                                        cart</button>
+                                                </form>
                                             </div>
                                         </div>
                                         <div class="text-center mt-3">

@@ -93,9 +93,7 @@ app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, 'about.html'));
 })
 
-app.get('/cart', (req, res) => {
-    res.sendFile(path.join(__dirname, 'cart.html'));
-})
+
 app.get('/Register', (req, res) => {
     res.sendFile(path.join(__dirname, 'Register.html'));
 })
@@ -715,4 +713,64 @@ app.get('/favorites', async (req, res) => {
     }
 });
 
+app.post('/add-to-cart/:id', async (req, res) => {
+    const { id } = req.params;
+    const unit = parseInt(req.body.units);
+    const isOnSale = req.query.onSale === 'true';
+    const existingUser = req.session.user;
+    const referer = req.headers.referer;
 
+
+    try {
+        // Fetch the product from the database based on the productId
+        const product = await Product.findById(id);
+
+        // Get the user's cart from the session or create a new one if it doesn't exist
+        let cart = req.session.cart;
+        if (!cart) {
+            cart = [];
+        }
+
+        // Calculate the price based on whether the product is on sale
+        const price = isOnSale ? product.selling_price : product.original_price;
+
+        // Check if the product already exists in the cart
+        const existingProduct = cart.find((item) => item.product.equals(product._id));
+        if (existingProduct) {
+            // If the product already exists, update the units
+            existingProduct.units += unit;
+        } else {
+            // If the product doesn't exist, add it to the cart
+            cart.push({
+                product: product._id,
+                price: price,
+                units: unit
+            });
+        }
+
+        // Update the cart in the session
+        req.session.cart = cart;
+
+        if (referer && referer.includes('/UserHome')) {
+            // The request is coming from the UserHome page
+            return res.redirect('/UserHome?name=' + encodeURIComponent(existingUser.first_name + ' ' + existingUser.last_name));
+        } else if (referer && referer.includes('/product')) {
+            // The request is coming from a product page
+            return res.redirect(referer);
+        } else {
+            // Handle other cases or provide a default redirect
+            return res.redirect('/'); // Example: Redirect to the home page
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+
+
+
+
+
+app.get('/cart', (req, res) => {
+
+})

@@ -366,6 +366,7 @@ app.post('/update-product/:id', async (req, res) => {
 
 
 app.get('/delete-product', async (req, res) => {
+
     try {
 
         const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
@@ -519,12 +520,20 @@ app.get('/error', (req, res) => {
 
 
 app.get('/AdminHome', (req, res) => {
-    const { name } = req.query;
-    let HelloMessage = 'Welcome ' + name;
+    if (req.session && req.session.user) {
+        const loggedInUser = req.session.user;
+        if (!loggedInUser.IsAdmin) {
+            return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
+        }
 
+        else {
+            const { name } = req.query;
+            let HelloMessage = 'Welcome ' + name;
+            res.render('AdminHome', { message: HelloMessage });
+        }
+    }
+    return res.redirect('login.ejs');
 
-
-    res.render('AdminHome', { message: HelloMessage });
 });
 
 

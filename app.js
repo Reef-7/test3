@@ -16,12 +16,15 @@ app.set('trust proxy', 1);
 const session = require('express-session');
 
 // Include the WebSocket code from websocket.js
-require('./websocket.js')(app);
 const http = require('http');
-const server = http.createServer(app);//check!!
+const server = http.createServer(app);
+require('./websocket.js')(server);
+
+
 // ... Other server code
-
-
+//live arcticles information shown 
+const Parser = require('rss-parser');
+const parser = new Parser();
 // Configure session middleware with FileStore
 
 const MongoDBStore = require('connect-mongodb-session')(session);
@@ -82,6 +85,15 @@ app.get('/', (req, res) => {
     //res.send('hi');
     res.sendFile(path.join(__dirname, 'home.html'));
 })
+app.get('/rss-feed', async (req, res) => {
+    try {
+        const feed = await parser.parseURL('https://feeds.feedblitz.com/hbwi-wellness');
+        res.send(feed.items);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('An error occurred.');
+    }
+});
 
 app.get('/Products', (req, res) => {
     res.sendFile(path.join(__dirname, 'Products.html'));

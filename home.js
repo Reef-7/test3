@@ -15,12 +15,33 @@ function make_base() {
 
 
 
+fetch('/rss-feed').then(response => response.json())
+    .then(data => {
+        const articles = document.getElementById('articles');
+        data.forEach(item => {
+            const li = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = item.link;
+            link.textContent = item.title;
+            li.appendChild(link);
+            articles.appendChild(li);
+        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        const articles = document.getElementById('articles');
+        const li = document.createElement('li');
+        li.textContent = 'An error occurred while fetching the articles.';
+        articles.appendChild(li);
+    });
 
 
 
-$(window).on('scroll', function () {
+
+
+/*$(window).on('scroll', function () {
     var scrollPosition = $(this).scrollTop();
     $('.top-banner').css('transform', 'translateY(' + scrollPosition * 0.5 + 'px)');
-});
+});*/
 
 

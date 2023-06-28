@@ -241,14 +241,12 @@
 
     <script>
         // Establish a WebSocket connection
-        // Handle forgot password link click event
-        const forgotPasswordLink = document.querySelector('#forgotPasswordLink');
-        forgotPasswordLink.addEventListener('click', (event) => {
-            event.preventDefault();
-            const email = document.querySelector('#InputEmail').value;
+        // WebSocket setup
+        const socket = new WebSocket('ws://localhost:3070');
 
-            // Send a message to the WebSocket server with the email
-            sendMessage({ type: 'forgotPassword', email });
+        // Event listener for when the WebSocket connection is established
+        socket.addEventListener('open', () => {
+            console.log('WebSocket connection established');
         });
 
         // Event listener for receiving messages from the WebSocket server
@@ -266,6 +264,21 @@
                     console.error('Password reset failed.');
                 }
             }
+        });
+
+        // Event listener for when the WebSocket connection is closed
+        socket.addEventListener('close', () => {
+            console.log('WebSocket connection closed');
+        });
+
+        // Handle forgot password link click event
+        const forgotPasswordLink = document.querySelector('#forgotPasswordLink');
+        forgotPasswordLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            const email = document.querySelector('#InputEmail').value;
+
+            // Send a message to the WebSocket server with the email
+            socket.send(JSON.stringify({ type: 'forgotPassword', email }));
         });
 
     </script>

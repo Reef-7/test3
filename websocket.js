@@ -3,7 +3,7 @@ const WebSocket = require('ws');
 
 
 module.exports = function setupWebSocket(server) {
-    const wss = new WebSocket.Server({ noServer: true });
+    const wss = new WebSocket.Server({ server });
 
     // Event listener for when a WebSocket connection is established
     wss.on('connection', (socket) => {

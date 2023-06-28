@@ -560,8 +560,15 @@ app.get('/UserHome', async (req, res) => {
 
         // Fetch 8 random products from the collection
         const products = await Product.aggregate([{ $sample: { size: 8 } }]);
-
-        res.render('UserHome', { message: HelloMessage, products });
+        const showAdminButton = false;
+        const referer = req.headers.referer;
+        /*if (referer && referer.includes('/AdminHome')) {
+            showAdminButton = true;
+        }*/
+        /* if (req.session.user.IsAdmin) {
+             showAdminButton = true;
+         }*/
+        return res.render('UserHome', { message: HelloMessage, products });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

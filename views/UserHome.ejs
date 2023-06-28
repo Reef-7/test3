@@ -157,7 +157,7 @@
                     <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Products">Products</a>
+                    <a class="nav-link" href="/shop">Shop</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/favorites">Favorites</a>
@@ -245,7 +245,7 @@
                                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                             <div class="text-center">
                                                 <form method="POST"
-                                                    action="/add-to-cart/<%= product._id %>?onSale=<%= isOnSale %>">
+                                                    action="/add-to-cart/<%= product._id %>?onSale=false">
                                                     <input type="number" id="unit-input" name="units" step="1" min="0"
                                                         max="<%= product.units %>">
                                                     <button type="submit" class="btn btn-outline-dark mt-auto">Add to

@@ -735,7 +735,7 @@ app.post('/add-to-cart/:id', async (req, res) => {
         if (referer && referer.includes('/UserHome')) {
             // The request is coming from the UserHome page
             return res.redirect('/UserHome?name=' + encodeURIComponent(existingUser.first_name + ' ' + existingUser.last_name));
-        } else if (referer && referer.includes('/product')) {
+        } else if (referer && ((referer.includes('/product')) || (referer.includes('/shop')))) {
             // The request is coming from a product page
             return res.redirect(referer);
         } else {
@@ -812,4 +812,87 @@ app.post('/removefromcart/:id', async (req, res) => {
         res.status(500).json({ error: 'An error occurred' });
     }
 });
+
+
+//--------
+app.post('/shop-list', async (req, res) => {
+    try {
+        const filters = {
+            title: req.body.title,
+            category: req.body.category,
+            brand: req.body.brand,
+            quantity: req.body.quantity,
+            original_price: req.body.original_price,
+            avg_rating: req.body.avg_rating,
+        };
+
+        const query = {};
+        for (const field in filters) {
+            if (filters[field]) {
+                query[field] = filters[field];
+            }
+        }
+
+        const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
+        const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
+
+
+        const pipeline = [
+            { $match: query },
+            { $group: { _id: "$category", products: { $push: "$$ROOT" } } },
+            { $skip: startIndex },
+            { $limit: 4 }
+        ];
+
+        const selectedProducts = await Product.aggregate(pipeline);
+        const totalProducts = await Product.countDocuments(query);
+        const totalPages = Math.ceil(totalProducts / 4); // Calculate the total number of pages
+
+        res.render('shop', {
+            products: selectedProducts,
+            currentPage: page,
+            totalPages
+        });
+    } catch (error) {
+        console.log('Error applying filters:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/shop', async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
+        const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
+
+        const filters = {
+            title: req.query.title,
+            category: req.query.category,
+            brand: req.query.brand,
+            original_price: req.body.original_price,
+            quantity: req.query.quantity,
+            avg_rating: req.query.avg_rating
+        };
+
+        const query = {};
+        for (const field in filters) {
+            if (filters[field]) {
+                query[field] = filters[field];
+            }
+        }
+
+        const products = await Product.find(query).skip(startIndex).limit(4).lean();
+        const totalProducts = await Product.countDocuments(query);
+        const totalPages = Math.ceil(totalProducts / 4); // Calculate the total number of pages
+
+        res.render('shop', {
+            products: products,
+            currentPage: page,
+            totalPages
+        });
+    } catch (error) {
+        console.log('Error retrieving products:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 

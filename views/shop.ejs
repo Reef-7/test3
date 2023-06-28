@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Product List</title>
+    <link rel="stylesheet" href="ProductsList.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+
+    <Style>
+        .empty-heart-icon::before {
+            content: "\2661";
+            /* HTML entity for an empty heart */
+            /* Add additional styles as needed */
+        }
+
+        .filled-heart-icon::before {
+            content: "\2665";
+            /* HTML entity for a filled heart */
+            /* Add additional styles as needed */
+        }
+    </Style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">BloomBoost</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/shop">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/favorites">Favorites</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact Us</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart">Cart
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-cart4" viewBox="0 0 16 16">
+                            <path
+                                d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                        </svg>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Log out</a>
+                </li>
+
+
+            </ul>
+
+        </div>
+
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h1>Filters</h1>
+                <button type="button" class="btn btn-dark" id="Filter">Toggle Filters</button>
+                <div class="filter-form">
+                    <form id="filterForm" action="/shop-list" method="POST">
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" name="title" placeholder="Title">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <input type="text" class="form-control" name="category" placeholder="Category">
+                        </div>
+                        <div class="form-group">
+                            <label for="brand">Brand</label>
+                            <input type="text" class="form-control" name="brand" placeholder="Brand">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="text" class="form-control" name="quantity" placeholder="Quantity">
+                        </div>
+                        <div class="form-group">
+                            <label for="avg_rating">Average Rating</label>
+                            <input type="number" class="form-control" name="avg_rating" placeholder="Average Rating"
+                                min="0" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="original_price" class="form-label">Price</label>
+                            <input type="range" class="form-range" min="0" max="1000" id="original_price">
+                        </div>
+
+                        <button type="submit" class="btn btn-light" data-mdb-ripple-color="dark">Apply Filter</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <h1>shop</h1>
+                <div class="card-deck">
+                    <% products.forEach(function(product) { %>
+                        <div class="card">
+                            <a href="/product/<%= product._id %>">
+                                <img class="card-img-top" src="<%= product.image %>" alt="<%= product.title %>" />
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= product.title %>
+                                </h5>
+                                <p class="card-text">Category: <%= product.category %>
+                                </p>
+                                <p class="card-text">Brand: <%= product.brand %>
+                                </p>
+                                <p class="card-text">Quantity: <%= product.quantity %>
+                                </p>
+                                <p class="card-text">Price: <%= product.original_price %>
+                                </p>
+                                <p class="card-text">Average Rating: <%= product.avg_rating %>
+                                </p>
+                            </div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <form method="POST" action="/add-to-cart/<%= product._id %>">
+                                        <input type="number" id="unit-input" name="units" step="1" min="0"
+                                            max="<%= product.units %>">
+                                        <button type="submit" class="btn btn-outline-dark mt-auto">Add to
+                                            cart</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                <button class="favorite-button" data-product-id="<%= product._id %>">
+                                    <i class="empty-heart-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <ul class="pagination">
+            <% if (currentPage> 1) { %>
+                <li class="page-item">
+                    <a class="page-link" href="/shop-list?page=<%= currentPage - 1 %>">&laquo;</a>
+                </li>
+                <% } %>
+
+                    <% for (let i=1; i <=totalPages; i++) { %>
+                        <% if (i===currentPage) { %>
+                            <li class="page-item active">
+                                <a class="page-link" href="/shop-list?page=<%= i %>">
+                                    <%= i %>
+                                </a>
+                            </li>
+                            <% } else { %>
+                                <li class="page-item">
+                                    <a class="page-link" href="/shop?page=<%= i %>">
+                                        <%= i %>
+                                    </a>
+                                </li>
+                                <% } %>
+                                    <% } %>
+
+                                        <% if (currentPage < totalPages) { %>
+                                            <li class="page-item">
+                                                <a class="page-link"
+                                                    href="/shop?page=<%= currentPage + 1 %>">&raquo;</a>
+                                            </li>
+                                            <% } %>
+        </ul>
+    </nav>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Filter").click(function () {
+                $(".filter-form").slideToggle();
+            });
+
+            $('.favorite-button').click(function () {
+                const button = $(this);
+                const productId = button.data('product-id');
+                var icon = $(this).find("i");
+                if (icon.hasClass("empty-heart-icon")) {
+                    $.post('/add-to-favorites', { productId }, function (data) {
+                        // Update the UI to reflect the product as a favorite
+                        icon.removeClass('empty-heart-icon').addClass('filled-heart-icon');
+                    });
+                }
+                else {
+                    $.post('/remove-from-favorites', { productId }, function (data) {
+                        // Update the UI to reflect the product as a favorite
+                        icon.removeClass('filled-heart-icon').addClass('empty-heart-icon');
+                    });
+                }
+            });
+        });
+
+
+
+
+
+    </script>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

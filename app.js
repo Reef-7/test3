@@ -1,9 +1,8 @@
-
-
 const express = require('express');
 const app = express();
 const path = require('path');
 const port = 3070;
+
 
 
 
@@ -16,7 +15,11 @@ app.set('trust proxy', 1);
 
 const session = require('express-session');
 
-
+// Include the WebSocket code from websocket.js
+require('./websocket.js')(app);
+const http = require('http');
+const server = http.createServer(app);//check!!
+// ... Other server code
 
 
 // Configure session middleware with FileStore
@@ -100,21 +103,21 @@ app.get('/Register', (req, res) => {
 
 
 
+//------
+const isAdmin = (req, res, next) => {
+    if (req.session && req.session.user && req.session.user.IsAdmin) {
+        // User is an admin, proceed to the next middleware or route handler
+        next();
+    } else {
+        const loggedInUser = req.session.user;
+        // User is not an admin, redirect to a suitable page or send an error response
+        res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name); // or res.status(403).send('Forbidden');
+    }
+};
+//-----
 
-
-app.get('/product-list', async (req, res) => {
+app.get('/product-list', isAdmin, async (req, res) => {
     try {
-        if (req.session && req.session.user) {
-            const loggedInUser = req.session.user;
-
-            // Check if the user is an admin
-            if (!loggedInUser.isAdmin) {
-                return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
-            }
-        } else {
-            // Redirect the user to the login page or show an error message
-            return res.redirect('/login');
-        }
 
         const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
         const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
@@ -193,19 +196,9 @@ app.post('/product-list', async (req, res) => {
 // ...
 
 
-app.get('/user-list', async (req, res) => {
+app.get('/user-list', isAdmin, async (req, res) => {
     try {
-        if (req.session && req.session.user) {
-            const loggedInUser = req.session.user;
 
-            // Check if the user is an admin
-            if (!loggedInUser.isAdmin) {
-                return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
-            }
-        } else {
-            // Redirect the user to the login page or show an error message
-            return res.redirect('/login');
-        }
         const users = await User.find({}).lean();
 
         console.log(users); // Log the users array to check the retrieved data
@@ -221,18 +214,8 @@ app.get('/user-list', async (req, res) => {
 
 
 
-app.get('/add-product', (req, res) => {
-    if (req.session && req.session.user) {
-        const loggedInUser = req.session.user;
+app.get('/add-product', isAdmin, (req, res) => {
 
-        // Check if the user is an admin
-        if (!loggedInUser.isAdmin) {
-            return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
-        }
-    } else {
-        // Redirect the user to the login page or show an error message
-        return res.redirect('/login');
-    }
     res.render('AddProduct.ejs'); // Replace 'addProduct' with the actual name of your EJS file for adding a product
 });
 
@@ -316,19 +299,8 @@ app.get('/login', (req, res) => {
 
 
 
-app.get('/update-product', async (req, res) => {
+app.get('/update-product', isAdmin, async (req, res) => {
     try {
-        if (req.session && req.session.user) {
-            const loggedInUser = req.session.user;
-
-            // Check if the user is an admin
-            if (!loggedInUser.isAdmin) {
-                return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
-            }
-        } else {
-            // Redirect the user to the login page or show an error message
-            return res.redirect('/login');
-        }
         const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
         const startIndex = (page - 1) * 20; // Calculate the starting index based on the current page
         const endIndex = startIndex + 20; // Calculate the ending index based on the current page
@@ -408,21 +380,11 @@ app.post('/update-product/:id', async (req, res) => {
 
 
 
-app.get('/delete-product', async (req, res) => {
+app.get('/delete-product', isAdmin, async (req, res) => {
 
     try {
 
-        if (req.session && req.session.user) {
-            const loggedInUser = req.session.user;
 
-            // Check if the user is an admin
-            if (!loggedInUser.isAdmin) {
-                return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
-            }
-        } else {
-            // Redirect the user to the login page or show an error message
-            return res.redirect('/login');
-        }
         const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
         const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
         const endIndex = startIndex + 4; // Calculate the ending index based on the current page
@@ -582,7 +544,7 @@ app.get('/AdminHome', (req, res) => {
 
         else {
             const { name } = req.query;
-            let HelloMessage = 'Welcome ' + name;
+            let HelloMessage = 'Welcome ' + loggedInUser.first_name + ' ' + loggedInUser.last_name;
             res.render('AdminHome', { message: HelloMessage });
         }
     }
@@ -831,5 +793,4 @@ app.post('/removefromcart/:id', async (req, res) => {
         res.status(500).json({ error: 'An error occurred' });
     }
 });
-
 

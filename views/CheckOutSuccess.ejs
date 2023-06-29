@@ -6,88 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="cart.css" rel="stylesheet">
-    <title>Cart</title>
+    <title>Order Placed Successfully</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
 
-    <style>
-        .cart-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #f5f5f5;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
 
-        .cart-item {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        .cart-item img {
-            max-width: 100px;
-            margin-right: 10px;
-        }
-
-        .cart-item .item-info {
-            flex-grow: 1;
-        }
-
-        .cart-item .item-price {
-            font-weight: bold;
-        }
-
-        .cart-item .item-quantity {
-            color: #888;
-        }
-
-        .cart-item .btn-remove {
-            color: #f00;
-            border: none;
-            background: none;
-            padding: 0;
-            cursor: pointer;
-        }
-
-        .cart-total {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 20px;
-            text-align: right;
-        }
-
-        .custom-btn {
-            background-color: #5cb85c;
-            color: #fff;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-
-        .custom-btn:hover {
-            background-color: #449d44;
-        }
-
-        .custom-btn:active {
-            background-color: #398439;
-        }
-
-        .CreditCardContainer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-            justify-content: center;
-            image-resolution: auto;
-
-
-        }
-    </style>
 </head>
 
 <body>
@@ -146,60 +70,23 @@
     </nav>
 
 
-    <form action="/checkout" method="post">
-        <div class="container cart-container">
-            <% let totalPrice=0 %>
-                <% cart.forEach((item)=> { %>
-                    <div class="cart-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <img src="<%= item.image %>">
-                            </div>
-                            <div class="col-md-6 item-info">
-                                <h5>
-                                    <%= item.title %>
-                                </h5>
-                                <p>
-                                    <%= item.highlights %>
-                                </p>
-                            </div>
-                            <div class="col-md-3">
-                                <p class="item-price">
-                                    <%= item.price %> ₪
-                                </p>
-                                <p class="item-quantity">Quantity:
-                                    <input type="number" name="quantity[]" min="0" max="<%= item.available %>"
-                                        value="<%= item.quantity %>">
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <input type="hidden" name="products_id[]" value="<%= item.id %>">
-                    <input type="hidden" name="products_price[]" value="<%= item.price %>">
-                    <input type="hidden" name="products_img[]" value="<%= item.image %>">
-                    <input type="hidden" name="products_title[]" value="<%= item.title %>">
-                    <input type="hidden" name="products_quantity[]" value="<%= item.quantity %>">
-                    <% totalPrice +=item.price * item.quantity %>
-                        <% }) %>
-                            <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
-                            <div class="cart-total">Total: <%= totalPrice %> ₪</div>
-                            <div class="text-center">
-                                <button class="custom-btn" type="submit">Checkout</button>
-                            </div>
+
+    <h1>Order Placed Successfully</h1>
+
+    <h2>Order Details:</h2>
+    <% orderDetails.products.forEach((product)=> { %>
+        <div class="product">
+            <img src="<%= product.img %>" alt="<%= product.title %>">
+            <p>Title: <%= product.title %>
+            </p>
+            <p>Quantity: <%= product.quantity %>
+            </p>
+            <p>Price: <%= product.price %>
+            </p>
         </div>
-    </form>
-
-    <% cart.forEach((item)=> { %>
-        <form action="/removefromcart/<%= item.id %>" method="post">
-            <button class="btn btn-remove" type="submit">Remove</button>
-        </form>
         <% }) %>
+            <p>Total Price: <%= orderDetails.totalPrice %> ₪</p>
 
-
-
-            <div class="CreditCardContainer">
-                <img src="https://i.ibb.co/HXK4rCt/rsz-874044.png">
-            </div>
 
             <footer class="bg-dark text-center text-white">
 

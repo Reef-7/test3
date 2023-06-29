@@ -903,12 +903,11 @@ app.post('/checkout', async (req, res) => {
         const {
             products_id,
             products_price,
-            quantity,
             products_img,
             products_title,
             products_quantity
         } = req.body;
-
+        let totalPrice = 0;
         const products = [];
         for (let i = 0; i < products_id.length; i++) {
             const product = {
@@ -919,20 +918,78 @@ app.post('/checkout', async (req, res) => {
                 img: products_img[i]
             };
             products.push(product);
+            totalPrice += product.price * product.quantity;
         }
 
         const order = new Order({
+            order_id: new mongoose.Types.ObjectId(),
             user_id: req.session.user.id,
+            date: new Date(),
             first_name: req.session.user.first_name,
             last_name: req.session.user.last_name,
             products
         });
+        req.session.order = {
+            orderId: order._id,
+            products,
+            totalPrice
+        };
+
 
         await order.save();
 
-        res.status(200).json({ message: 'Order placed successfully' });
+        res.redirect('/checkout-success');
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while placing the order' });
+    }
+});
+
+app.get('/checkout-success', (req, res) => {
+    // Retrieve the order details from the session or database
+    // Render the CheckOutSuccess.ejs template with the order details
+    res.render('CheckOutSuccess', { orderDetails: req.session.order });
+});
+
+
+
+app.get('/personal-orders', async (req, res) => {
+    try {
+        // Retrieve the user ID from the session or any other authentication mechanism
+        const userId = req.session.user.id;
+
+        // Retrieve the user's order history from the database
+        const orders = await Order.find({ user_id: userId });
+
+        // Render the orders history view and pass the orders data
+        res.render('personalorders.ejs', { orders });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while retrieving the order history' });
+    }
+});
+
+
+app.get('/orders-history', isAdmin, async (req, res) => {
+    try {
+        // Extract filter parameters from the query string
+        const { date, firstName, lastName, price } = req.query;
+
+        // Build the filter object based on the provided parameters
+        const filter = {};
+        if (date) filter.date = new Date(date);
+        if (firstName) filter['user.firstName'] = firstName;
+        if (lastName) filter['user.lastName'] = lastName;
+        if (price) filter.totalPrice = parseFloat(price);
+
+        // Fetch the orders that match the filter
+        const orders = await Order.find(filter);
+
+        // Render the orders.ejs template and pass the orders data
+        res.render('ordershistory.ejs', { orders });
+    } catch (error) {
+        // Handle any errors that occur during the process
+        console.error(error);
+        res.status(500).send('Internal Server Error');
     }
 });

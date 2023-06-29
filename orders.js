@@ -9,6 +9,9 @@ const ordersSchema = new mongoose.Schema({
     user_id: {
         type: Number,
         required: true,
+    }, date: {
+        type: Date,
+        default: Date.now // Set the default value to the current date and time
     },
     first_name: String,
     last_name: String,

@@ -896,3 +896,43 @@ app.get('/shop', async (req, res) => {
 });
 
 
+
+const Order = require('./orders');
+app.post('/checkout', async (req, res) => {
+    try {
+        const {
+            products_id,
+            products_price,
+            quantity,
+            products_img,
+            products_title,
+            products_quantity
+        } = req.body;
+
+        const products = [];
+        for (let i = 0; i < products_id.length; i++) {
+            const product = {
+                product_id: products_id[i],
+                title: products_title[i],
+                price: products_price[i],
+                quantity: products_quantity[i],
+                img: products_img[i]
+            };
+            products.push(product);
+        }
+
+        const order = new Order({
+            user_id: req.session.user.id,
+            first_name: req.session.user.first_name,
+            last_name: req.session.user.last_name,
+            products
+        });
+
+        await order.save();
+
+        res.status(200).json({ message: 'Order placed successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while placing the order' });
+    }
+});

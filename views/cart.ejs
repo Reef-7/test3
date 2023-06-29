@@ -150,49 +150,55 @@
     </nav>
 
 
-    <div class="container cart-container">
-        <% cart.forEach((item)=> { %>
-            <div class="cart-item">
-                <div class="row">
-                    <div class="col-md-3">
-                        <img src="<%= item.image %>">
+    <form action="/checkout" method="post">
+        <div class="container cart-container">
+            <% let totalPrice=0 %>
+                <% cart.forEach((item)=> { %>
+                    <div class="cart-item">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="<%= item.image %>">
+                            </div>
+                            <div class="col-md-6 item-info">
+                                <h5>
+                                    <%= item.title %>
+                                </h5>
+                                <p>
+                                    <%= item.highlights %>
+                                </p>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="item-price">
+                                    <%= item.price %> ₪
+                                </p>
+                                <p class="item-quantity">Quantity:
+                                    <input type="number" name="quantity[]" min="0" max="<%= item.available %>"
+                                        value="<%= item.quantity %>">
+                                </p>
+                                <form action="/removefromcart/<%= item.id %>" method="post">
+                                    <button class="btn btn-remove" type="submit">Remove</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6 item-info">
-                        <h5>
-                            <%= item.title %>
-                        </h5>
-                        <p>
-                            <%= item.highlights %>
-                        </p>
-                    </div>
-                    <div class="col-md-3">
-                        <p class="item-price">
-                            <%= item.price %> ₪
-                        </p>
-                        <p class="item-quantity">Quantity:
-                            <input type="number" name="quantity" min="0" max="<%= item.available %>"
-                                value="<%= item.quantity %>">
-                        </p>
-                        <form action="/removefromcart/<%= item.id %>" method="post">
-                            <button class="btn btn-remove" type="submit">Remove</button>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-            <% }) %>
-                <form action="/checkout" method="post">
-                    <div class="cart-total">
-                        Total:
-                    </div>
-                    <div class="text-center">
-                        <button class="custom-btn" type="submit">Checkout</button>
-                    </div>
-    </div>
+                    <input type="hidden" name="products_id[]" value="<%= item.id %>">
+                    <input type="hidden" name="products_price[]" value="<%= item.price %>">
+                    <input type="hidden" name="products_img[]" value="<%= item.image %>">
+                    <input type="hidden" name="products_title[]" value="<%= item.title %>">
+                    <input type="hidden" name="products_quantity[]" value="<%= item.quantity %>">
+                    <% totalPrice +=item.price * item.quantity %>
+                        <% }) %>
+                            <input type="hidden" name="totalPrice" value="<%= totalPrice %>">
+                            <div class="cart-total">Total: <%= totalPrice %> ₪</div>
+                            <div class="text-center">
+                                <button class="custom-btn" type="submit">Checkout</button>
+                            </div>
+        </div>
     </form>
 
+
     <div class="CreditCardContainer">
-        <img src="https://logodix.com/logo/874044.gif">
+        <img src="https://i.ibb.co/HXK4rCt/rsz-874044.png">
     </div>
 
     <footer class="bg-dark text-center text-white">

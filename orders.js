@@ -10,9 +10,16 @@ const ordersSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    products_id: [String],
-    products_price: [Number],
-    quantity: [NUmber]
+    first_name: String,
+    last_name: String,
+    products: [{
+        product_id: String,
+        title: String,
+        price: Number,
+        quantity: Number,
+        img: String
+    }],
+
 })
 
 const Order = mongoose.model('orders', ordersSchema);

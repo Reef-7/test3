@@ -59,7 +59,7 @@
         <h1>Orders History</h1>
         <button type="button" class="btn btn-dark" id="Filter">Filter</button>
         <div class="filter-form">
-            <form id="filterForm" action="/personal-orders" method="GET">
+            <form id="filterForm" action="/orders-history" method="GET">
                 <input type="text" name="date" placeholder="Date">
                 <input type="text" name="firstName" placeholder="First Name">
                 <input type="text" name="lastName" placeholder="Last Name">
@@ -87,10 +87,10 @@
                                         <% }) %>
                             </td>
                             <td>
-                                <%= order.first_Name %>
+                                <%= order.first_name %>
                             </td>
                             <td>
-                                <%= order.last_Name %>
+                                <%= order.last_name %>
                             </td>
                             <td>
                                 <%= order.totalPrice %>

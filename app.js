@@ -978,9 +978,9 @@ app.get('/orders-history', isAdmin, async (req, res) => {
         // Build the filter object based on the provided parameters
         const filter = {};
         if (date) filter.date = new Date(date);
-        if (firstName) filter['user.firstName'] = firstName;
-        if (lastName) filter['user.lastName'] = lastName;
-        if (price) filter.totalPrice = parseFloat(price);
+        if (firstName) filter.first_name = firstName;
+        if (lastName) filter.last_name = lastName;
+        if (price) filter['products.price'] = parseFloat(price);
 
         // Fetch the orders that match the filter
         const orders = await Order.find(filter);
@@ -993,3 +993,28 @@ app.get('/orders-history', isAdmin, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+app.post('/orders-history', async (req, res) => {
+    try {
+        // Extract filter parameters from the request body
+        const { date, firstName, lastName, price } = req.body;
+
+        // Build the filter object based on the provided parameters
+        const filter = {};
+        if (date) filter.date = new Date(date);
+        if (firstName) filter.first_name = firstName;
+        if (lastName) filter.last_name = lastName;
+        if (price) filter['products.price'] = parseFloat(price);
+
+        // Fetch the orders that match the filter
+        const orders = await Order.find(filter);
+
+        // Render the orders.ejs template and pass the orders data
+        res.render('ordershistory.ejs', { orders });
+    } catch (error) {
+        // Handle any errors that occur during the process
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+

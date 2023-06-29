@@ -22,6 +22,7 @@ const ordersSchema = new mongoose.Schema({
         quantity: Number,
         img: String
     }],
+    totalPrice: Number
 
 })
 

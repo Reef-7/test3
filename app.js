@@ -301,11 +301,14 @@ app.get('/login', (req, res) => {
         if (loggedInUser.IsAdmin) {
             return res.redirect('/AdminHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
         }
-        return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
+        else {
+            return res.redirect('/UserHome?name=' + loggedInUser.first_name + ' ' + loggedInUser.last_name);
+        }
     }
-
-    // User is not logged in, show the login page
-    res.render('login.ejs');
+    else {
+        // User is not logged in, show the login page
+        return res.render('login.ejs');
+    }
 });
 
 

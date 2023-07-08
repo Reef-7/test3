@@ -7,8 +7,8 @@ const port = 3070;
 
 
 
-const cookieParser = require('cookie-parser');//is needed?
-app.use(cookieParser());//is needed?
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 
 app.set('trust proxy', 1);
@@ -21,7 +21,7 @@ const server = http.createServer(app);
 require('./websocket.js')(server);
 
 
-// ... Other server code
+
 //live arcticles information shown 
 const Parser = require('rss-parser');
 const parser = new Parser();
@@ -62,20 +62,20 @@ app.use(
 const mongoose = require('mongoose');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const db = require('./seeds');//Check!
-const Product = require('./product');//Check!
-const ejs = require('ejs');//Check!
+const db = require('./seeds');
+const Product = require('./product');
+const ejs = require('ejs');
 const User = require('./users');
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname)));//new
+app.use(express.static(path.join(__dirname)));
 
 
 
 
 
 
-app.set('view engine', 'ejs'); //Check!
+app.set('view engine', 'ejs');
 
 app.listen(port, function () {
     console.log('connected succesfully to port 3070')
@@ -136,7 +136,7 @@ app.get('/product-list', isAdmin, async (req, res) => {
         const endIndex = startIndex + 4; // Calculate the ending index based on the current page
 
         // Fetch the product data from your database or any other source
-        const products = await Product.find({}).lean(); // Replace this with your actual data retrieval logic
+        const products = await Product.find({}).lean();
 
         const totalPages = Math.ceil(products.length / 4); // Calculate the total number of pages
 
@@ -228,7 +228,7 @@ app.get('/user-list', isAdmin, async (req, res) => {
 
 app.get('/add-product', isAdmin, (req, res) => {
 
-    res.render('AddProduct.ejs'); // Replace 'addProduct' with the actual name of your EJS file for adding a product
+    res.render('AddProduct.ejs');
 });
 
 
@@ -370,7 +370,7 @@ app.post('/update-product/:id', async (req, res) => {
     if (req.body.original_price) {
         updates.original_price = req.body.original_price;
     }
-    if (req.body.image) { //check!!
+    if (req.body.image) {
         updates.image = req.body.image;
     }
     if (req.body.units) {
@@ -404,8 +404,8 @@ app.get('/delete-product', isAdmin, async (req, res) => {
         const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
         const endIndex = startIndex + 4; // Calculate the ending index based on the current page
 
-        // Fetch the product data from your database or any other source
-        const products = await Product.find({}).lean(); // Replace this with your actual data retrieval logic
+        // Fetch the product data from database 
+        const products = await Product.find({}).lean();
 
         const totalPages = Math.ceil(products.length / 4); // Calculate the total number of pages
 
@@ -433,7 +433,7 @@ app.post('/delete-product', async (req, res) => {
         // Delete the selected product from the database
         await Product.deleteOne({ product_id: selectedProductId });
 
-        // Redirect to the product list page or display a success message
+        // Redirect to the product list page 
         res.redirect('/product-list');
     } catch (error) {
         console.log('Error deleting product:', error);
@@ -484,7 +484,7 @@ app.post('/Register', async (req, res) => {
 
 
 
-        // Redirect to the home page or display a success message
+        // Redirect to the home page 
         res.redirect('/');
     } catch (error) {
         console.log('Error registering user:', error);
@@ -660,11 +660,10 @@ app.post('/remove-from-favorites', async (req, res) => {
 
 
 app.get('/logout', (req, res) => {
-    // Perform logout actions here, such as clearing the session or removing the user's authentication token
-    // For example, if you're using Express sessions, you can use the following line to destroy the session:
+    // Perform logout action of destroying the session
     req.session.destroy();
 
-    // Redirect the user to the homepage or any other desired page
+    // Redirect the user to the homepage
     res.redirect('/');
 });
 
@@ -818,7 +817,7 @@ app.post('/removefromcart/:id', async (req, res) => {
 
 
 //--------
-app.post('/shop-list', async (req, res) => {
+app.post('/shop', async (req, res) => {
     try {
         const filters = {
             title: req.body.title,
@@ -958,7 +957,7 @@ app.get('/checkout-success', (req, res) => {
 
 app.get('/personal-orders', async (req, res) => {
     try {
-        // Retrieve the user ID from the session or any other authentication mechanism
+        // Retrieve the user ID from the session 
         const userId = req.session.user.id;
 
         // Retrieve the user's order history from the database
@@ -1021,3 +1020,50 @@ app.post('/orders-history', async (req, res) => {
     }
 });
 
+
+
+app.get('/totalgraph', isAdmin, async (req, res) => {
+    try {
+        const data = await Order.aggregate([
+            {
+                $group: {
+                    _id: { $month: '$date' },
+                    totalPrice: { $sum: '$totalPrice' },
+                },
+            },
+        ]);
+
+        res.render('TotalGraph', { data: JSON.stringify(data) });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+app.get('/AvgGraph', isAdmin, async (req, res) => {
+    try {
+        const currentDate = new Date();
+        const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        const data = await Order.aggregate([
+            {
+                $match: {
+                    _id: { $ne: null },
+                    date: { $gte: startOfMonth, $lte: endOfMonth }
+                }
+            },
+            {
+                $group: {
+                    _id: { $dateToString: { format: '%Y-%m-%d', date: '$date' } },
+                    averagePrice: { $avg: '$totalPrice' }
+                }
+            }
+        ]);
+
+        res.render('AvgGraph', { data: JSON.stringify(data) });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});

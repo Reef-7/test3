@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Add your CSS styling here */
+        .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 2px;
+        }
+
+        .axis-x,
+        .axis-y {
+            font-size: 12px;
+        }
+
+        #moving-average {
+            overflow: visible;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">BloomBoost</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Users
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/orders-history">All Orders</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/user-list">List</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Products
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/add-product">Add New</a>
+                        <a class="dropdown-item" href="/update-product">Update</a>
+                        <a class="dropdown-item" href="/delete-product">Delete</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/product-list">List</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Statistics
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/AvgGraph">Average</a>
+                        <a class="dropdown-item" href="/totalgraph">Total</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1>Moving Average of Average Order Total Price per Day</h1>
+    <svg id="moving-average"></svg>
+
+    <script>
+        // Access the data passed from Express
+        const data = JSON.parse('<%- data %>');
+        const startDate = new Date();
+        startDate.setMonth(startDate.getMonth() - 1);
+
+        // Filter the data for the desired date range
+        const filteredData = data.filter(d => {
+            const date = new Date(d._id);
+            return date >= startDate && date <= new Date();
+        });
+
+        const formattedData = filteredData.map(d => ({
+            date: new Date(d._id),
+            averagePrice: d.averagePrice
+        }));
+
+        // Set up your D3.js visualization for the moving average
+        const margin = { top: 30, right: 30, bottom: 50, left: 50 };
+        const width = 600 - margin.left - margin.right;
+        const height = 400 - margin.top - margin.bottom;
+
+        const svg = d3.select("#moving-average")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        const x = d3.scaleBand()
+            .domain(formattedData.map(d => d.date.toISOString().slice(0, 10)))
+            .range([0, width])
+            .padding(0.1);
+
+        const y = d3.scaleLinear()
+            .domain([0, d3.max(formattedData, d => d.averagePrice)])
+            .range([height, 0]);
+
+        const line = d3.line()
+            .x(d => x(d.date.toISOString().slice(0, 10)) + x.bandwidth() / 2)
+            .y(d => y(d.averagePrice));
+
+        svg.append("g")
+            .attr("class", "axis-x")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        svg.append("g")
+            .attr("class", "axis-y")
+            .call(d3.axisLeft(y));
+
+        svg.selectAll(".bar")
+            .data(formattedData)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", d => x(d.date.toISOString().slice(0, 10)))
+            .attr("y", d => y(d.averagePrice))
+            .attr("width", x.bandwidth())
+            .attr("height", d => height - y(d.averagePrice));
+    </script>
+</body>
+
+</html>

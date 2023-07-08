@@ -16,13 +16,13 @@
         .empty-heart-icon::before {
             content: "\2661";
             /* HTML entity for an empty heart */
-            /* Add additional styles as needed */
+
         }
 
         .filled-heart-icon::before {
             content: "\2665";
             /* HTML entity for a filled heart */
-            /* Add additional styles as needed */
+
         }
     </Style>
 </head>
@@ -88,7 +88,7 @@
                 <h1>Filters</h1>
                 <button type="button" class="btn btn-dark" id="Filter">Toggle Filters</button>
                 <div class="filter-form">
-                    <form id="filterForm" action="/shop-list" method="POST">
+                    <form id="filterForm" action="/shop" method="POST">
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" class="form-control" name="title" placeholder="Title">
@@ -112,7 +112,8 @@
                         </div>
                         <div class="form-group">
                             <label for="original_price" class="form-label">Price</label>
-                            <input type="range" class="form-range" min="0" max="1000" id="original_price">
+                            <input type="range" class="form-range" min="0" max="1000" id="original_price"
+                                name="original_price">
                         </div>
 
                         <button type="submit" class="btn btn-light" data-mdb-ripple-color="dark">Apply Filter</button>

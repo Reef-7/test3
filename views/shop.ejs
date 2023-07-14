@@ -3,14 +3,14 @@
 
     <head>
         <title>Shop</title>
-        <link rel="stylesheet" href="ProductsList.css">
+        <!-- <link rel="stylesheet" href="ProductsList.css"> -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-
+        <!-- <link href="/shop.css" rel="stylesheet"> -->
 
         <Style>
             .empty-heart-icon::before {
@@ -23,6 +23,39 @@
                 content: "\2665";
                 /* HTML entity for a filled heart */
 
+            }
+
+            .pagination-container {
+                overflow-x: auto;
+            }
+
+            /* .pagination {
+                margin-left: 20px;
+            } */
+
+            .card-deck {
+                margin-bottom: 10px;
+            }
+
+            .card-img-top {
+                height: 200px;
+                object-fit: cover;
+            }
+
+
+
+            .card {
+                background-image: linear-gradient(to right, rgb(31, 202, 116), rgb(4, 213, 40), rgb(122, 206, 53));
+
+            }
+
+
+            body {
+                margin: 0;
+                padding: 0;
+                background-size: cover;
+                background-position: center center;
+                background-image: linear-gradient(to right, rgb(31, 202, 116), rgb(122, 206, 53), rgb(4, 213, 40));
             }
         </Style>
     </head>
@@ -176,36 +209,39 @@
         </div>
 
         <nav>
-            <ul class="pagination">
-                <% if (currentPage> 1) { %>
-                    <li class="page-item">
-                        <a class="page-link" href="/shop-list?page=<%= currentPage - 1 %>">&laquo;</a>
-                    </li>
-                    <% } %>
+            <div class="container">
+                <ul class="pagination ">
+                    <% if (currentPage> 1) { %>
+                        <li class="page-item">
+                            <a class="page-link" href="/shop-list?page=<%= currentPage - 1 %>">&laquo;</a>
+                        </li>
+                        <% } %>
 
-                        <% for (let i=1; i <=totalPages; i++) { %>
-                            <% if (i===currentPage) { %>
-                                <li class="page-item active">
-                                    <a class="page-link" href="/shop-list?page=<%= i %>">
-                                        <%= i %>
-                                    </a>
-                                </li>
-                                <% } else { %>
-                                    <li class="page-item">
-                                        <a class="page-link" href="/shop?page=<%= i %>">
+                            <% for (let i=1; i <=totalPages; i++) { %>
+                                <% if (i===currentPage) { %>
+                                    <li class="page-item active">
+                                        <a class="page-link" href="/shop-list?page=<%= i %>">
                                             <%= i %>
                                         </a>
                                     </li>
-                                    <% } %>
+                                    <% } else { %>
+                                        <li class="page-item">
+                                            <a class="page-link" href="/shop?page=<%= i %>">
+                                                <%= i %>
+                                            </a>
+                                        </li>
                                         <% } %>
+                                            <% } %>
 
-                                            <% if (currentPage < totalPages) { %>
-                                                <li class="page-item">
-                                                    <a class="page-link"
-                                                        href="/shop?page=<%= currentPage + 1 %>">&raquo;</a>
-                                                </li>
-                                                <% } %>
-            </ul>
+                                                <% if (currentPage < totalPages) { %>
+                                                    <li class="page-item">
+                                                        <a class="page-link"
+                                                            href="/shop?page=<%= currentPage + 1 %>">&raquo;</a>
+                                                    </li>
+                                                    <% } %>
+                </ul>
+            </div>
+
         </nav>
         <footer class="bg-dark text-center text-white">
 

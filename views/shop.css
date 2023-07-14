@@ -1,0 +1,33 @@
+.empty-heart-icon::before {
+    content: "\2661";
+    /* HTML entity for an empty heart */
+
+
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.filled-heart-icon::before {
+    content: "\2665";
+    /* HTML entity for a filled heart */
+
+}
+
+.card {
+    background-image: linear-gradient(to right, rgb(31, 202, 116), rgb(4, 213, 40), rgb(122, 206, 53));
+    margin-bottom: 10px;
+}
+
+
+body {
+
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: linear-gradient(to right, rgb(31, 202, 116), rgb(122, 206, 53), rgb(4, 213, 40));
+}

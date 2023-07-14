@@ -67,6 +67,7 @@ const Product = require('./product');
 const ejs = require('ejs');
 const User = require('./users');
 const bodyParser = require('body-parser');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));
 
@@ -1039,6 +1040,7 @@ app.get('/totalgraph', isAdmin, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+// app.get('/shop.css',)
 
 
 app.get('/AvgGraph', isAdmin, async (req, res) => {

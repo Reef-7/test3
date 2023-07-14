@@ -209,38 +209,38 @@
         </div>
 
         <nav>
-            <div class="container">
-                <ul class="pagination ">
-                    <% if (currentPage> 1) { %>
-                        <li class="page-item">
-                            <a class="page-link" href="/shop-list?page=<%= currentPage - 1 %>">&laquo;</a>
-                        </li>
-                        <% } %>
 
-                            <% for (let i=1; i <=totalPages; i++) { %>
-                                <% if (i===currentPage) { %>
-                                    <li class="page-item active">
-                                        <a class="page-link" href="/shop-list?page=<%= i %>">
+            <ul class="pagination  justify-content-center ">
+                <% if (currentPage> 1) { %>
+                    <li class="page-item">
+                        <a class="page-link" href="/shop-list?page=<%= currentPage - 1 %>">&laquo;</a>
+                    </li>
+                    <% } %>
+
+                        <% for (let i=1; i <=totalPages; i++) { %>
+                            <% if (i===currentPage) { %>
+                                <li class="page-item active">
+                                    <a class="page-link" href="/shop-list?page=<%= i %>">
+                                        <%= i %>
+                                    </a>
+                                </li>
+                                <% } else { %>
+                                    <li class="page-item">
+                                        <a class="page-link" href="/shop?page=<%= i %>">
                                             <%= i %>
                                         </a>
                                     </li>
-                                    <% } else { %>
-                                        <li class="page-item">
-                                            <a class="page-link" href="/shop?page=<%= i %>">
-                                                <%= i %>
-                                            </a>
-                                        </li>
+                                    <% } %>
                                         <% } %>
-                                            <% } %>
 
-                                                <% if (currentPage < totalPages) { %>
-                                                    <li class="page-item">
-                                                        <a class="page-link"
-                                                            href="/shop?page=<%= currentPage + 1 %>">&raquo;</a>
-                                                    </li>
-                                                    <% } %>
-                </ul>
-            </div>
+                                            <% if (currentPage < totalPages) { %>
+                                                <li class="page-item">
+                                                    <a class="page-link"
+                                                        href="/shop?page=<%= currentPage + 1 %>">&raquo;</a>
+                                                </li>
+                                                <% } %>
+            </ul>
+
 
         </nav>
         <footer class="bg-dark text-center text-white">

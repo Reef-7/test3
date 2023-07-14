@@ -31,9 +31,20 @@
                 background-image: linear-gradient(to right, rgb(31, 202, 116), rgb(4, 213, 40), rgb(122, 206, 53));
             }
 
-            .axis-x,
-            .axis-y {
+
+
+            .axis-label {
                 font-size: 12px;
+                font-weight: bold;
+                margin-right: 10px;
+            }
+
+            .y-axis-label {
+                font-size: 12px;
+                font-weight: bold;
+                transform: rotate(-90deg);
+                text-anchor: middle;
+                dominant-baseline: middle;
             }
         </style>
     </head>
@@ -88,7 +99,7 @@
             </div>
         </nav>
         <div class="container text-center">
-            <h1 class="mt-5 boo-text">Histogram of Total Prices of Orders per Month</h1>
+            <h1 class="mt-5">Histogram of Total Prices of Orders per Month</h1>
             <svg id="histogram"></svg>
         </div>
 
@@ -127,9 +138,24 @@
                 .attr("transform", "translate(0," + height + ")")
                 .call(d3.axisBottom(x));
 
+            svg.append("text")
+                .attr("class", "axis-label")
+                .attr("x", width / 2)
+                .attr("y", height + margin.bottom - 10)
+                .attr("text-anchor", "middle")
+                .text("Months");
+
             svg.append("g")
                 .attr("class", "axis-y")
                 .call(d3.axisLeft(y));
+
+            svg.append("text")
+                .attr("class", "axis-label")
+                .attr("transform", "rotate(-90)")
+                .attr("x", -height / 2)
+                .attr("y", -margin.left + 20)
+                .attr("text-anchor", "middle")
+                .text("Total Prices");
 
             svg.selectAll(".bar")
                 .data(formattedData)
@@ -140,8 +166,3 @@
                 .attr("y", d => y(d.totalPrice))
                 .attr("height", d => height - y(d.totalPrice));
         </script>
-
-
-    </body>
-
-</html>

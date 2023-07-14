@@ -1,274 +1,279 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Product List</title>
-    <link rel="stylesheet" href="ProductsList.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <head>
+        <title>Product List</title>
+        <link rel="stylesheet" href="ProductsList.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <style>
+            body {
+                background-image: linear-gradient(to right, rgb(31, 202, 116), rgb(4, 213, 40), rgb(122, 206, 53));
+            }
+        </style>
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">BloomBoost</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Users
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/orders-history">All Orders</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/user-list">List</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Products
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/add-product">Add New</a>
-                        <a class="dropdown-item" href="/update-product">Update</a>
-                        <a class="dropdown-item" href="/delete-product">Delete</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/product-list">List</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Statistics
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/AvgGraph">Average</a>
-                        <a class="dropdown-item" href="/totalgraph">Total</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">BloomBoost</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Users
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/orders-history">All Orders</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/user-list">List</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Products
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/add-product">Add New</a>
+                            <a class="dropdown-item" href="/update-product">Update</a>
+                            <a class="dropdown-item" href="/delete-product">Delete</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/product-list">List</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Statistics
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/AvgGraph">Average</a>
+                            <a class="dropdown-item" href="/totalgraph">Total</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-    <div class="container">
-        <h1>Product List</h1>
-        <button type="button" class="btn btn-dark" id="Filter">Filter</button>
-        <div class="filter-form">
-            <form id="filterForm" action="/product-list" method="POST">
-                <input type="text" name="title" placeholder="Title">
-                <input type="text" name="category" placeholder="Category">
-                <input type="text" name="brand" placeholder="Brand">
-                <input type="text" name="quantity" placeholder="Quantity">
-                <input type="text" name="url" placeholder="URL">
-                <input type="text" name="product_id" placeholder="Product ID">
-                <input type="text" name="listing_id" placeholder="Listing ID">
-                <input type="text" name="highlights" placeholder="Highlights">
-                <input type="text" name="availability" placeholder="Availability">
-                <input type="number" name="selling_price" placeholder="Selling Price" min="0" step="1">
-                <input type="number" name="original_price" placeholder="Original Price" min="0" step="1">
-                <input type="text" name="currency" placeholder="Currency">
-                <input type="number" name="avg_rating" placeholder="Average Rating" min="0" step="0.1">
-                <input type="number" name="rating_count" placeholder="Rating Count" min="0" step="1">
-                <input type="number" name="review_count" placeholder="Review Count" min="0" step="1">
-                <input type="number" name="1_stars_count" placeholder="1 Star Count" min="0" step="1">
-                <input type="number" name="2_stars_count" placeholder="2 Star Count" min="0" step="1">
-                <input type="number" name="3_stars_count" placeholder="3 Star Count" min="0" step="1">
-                <input type="number" name="4_stars_count" placeholder="4 Star Count" min="0" step="1">
-                <input type="number" name="5_stars_count" placeholder="5 Star Count" min="0" step="1">
-                <input type="text" name="image" placeholder="Image URL">
-                <input type="text" name="units" placeholder="Units">
-                <button type="submit" class="btn btn-light" data-mdb-ripple-color="dark">Apply Filter</button>
-            </form>
-        </div>
-        <div class="table-responsive">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Brand</th>
-                        <th>Quantity</th>
-                        <th>URL</th>
-                        <th>Product ID</th>
-                        <th>Listing ID</th>
-                        <th>Highlights</th>
-                        <th>Availability</th>
-                        <th>Selling Price</th>
-                        <th>Original Price</th>
-                        <th>Currency</th>
-                        <th>Average Rating</th>
-                        <th>Rating Count</th>
-                        <th>Review Count</th>
-                        <th>1 Star Count</th>
-                        <th>2 Star Count</th>
-                        <th>3 Star Count</th>
-                        <th>4 Star Count</th>
-                        <th>5 Star Count</th>
-                        <th>Image</th>
-                        <th>Units</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-
-
-                    <% products.forEach(function(product) { %>
+        <div class="container">
+            <h1>Product List</h1>
+            <button type="button" class="btn btn-dark" id="Filter">Filter</button>
+            <div class="filter-form">
+                <form id="filterForm" action="/product-list" method="POST">
+                    <input type="text" name="title" placeholder="Title">
+                    <input type="text" name="category" placeholder="Category">
+                    <input type="text" name="brand" placeholder="Brand">
+                    <input type="text" name="quantity" placeholder="Quantity">
+                    <input type="text" name="url" placeholder="URL">
+                    <input type="text" name="product_id" placeholder="Product ID">
+                    <input type="text" name="listing_id" placeholder="Listing ID">
+                    <input type="text" name="highlights" placeholder="Highlights">
+                    <input type="text" name="availability" placeholder="Availability">
+                    <input type="number" name="selling_price" placeholder="Selling Price" min="0" step="1">
+                    <input type="number" name="original_price" placeholder="Original Price" min="0" step="1">
+                    <input type="text" name="currency" placeholder="Currency">
+                    <input type="number" name="avg_rating" placeholder="Average Rating" min="0" step="0.1">
+                    <input type="number" name="rating_count" placeholder="Rating Count" min="0" step="1">
+                    <input type="number" name="review_count" placeholder="Review Count" min="0" step="1">
+                    <input type="number" name="1_stars_count" placeholder="1 Star Count" min="0" step="1">
+                    <input type="number" name="2_stars_count" placeholder="2 Star Count" min="0" step="1">
+                    <input type="number" name="3_stars_count" placeholder="3 Star Count" min="0" step="1">
+                    <input type="number" name="4_stars_count" placeholder="4 Star Count" min="0" step="1">
+                    <input type="number" name="5_stars_count" placeholder="5 Star Count" min="0" step="1">
+                    <input type="text" name="image" placeholder="Image URL">
+                    <input type="text" name="units" placeholder="Units">
+                    <button type="submit" class="btn btn-light" data-mdb-ripple-color="dark">Apply Filter</button>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>
-                                <%= product.title %>
-
-                            </td>
-                            <td>
-                                <%= product.category %>
-
-                            </td>
-                            <td>
-                                <%= product.brand %>
-
-                            </td>
-                            <td>
-                                <%= product.quantity %>
-
-                            </td>
-                            <td>
-                                <%= product.url %>
-
-                            </td>
-                            <td>
-                                <%= product.product_id %>
-
-                            </td>
-                            <td>
-                                <%= product.listing_id %>
-
-                            </td>
-                            <td>
-                                <%= product.highlights %>
-
-                            </td>
-                            <td>
-                                <%= product.availability %>
-
-                            </td>
-                            <td>
-                                <%= product.selling_price %>
-
-                            </td>
-                            <td>
-                                <%= product.original_price %>
-
-                            </td>
-                            <td>
-                                <%= product.currency %>
-
-                            </td>
-                            <td>
-                                <%= product.avg_rating %>
-
-                            </td>
-                            <td>
-                                <%= product.rating_count %>
-
-                            </td>
-                            <td>
-                                <%= product.review_count %>
-
-                            </td>
-                            <td>
-                                <%= product['1_stars_count'] %>
-
-                            </td>
-                            <td>
-                                <%= product['2_stars_count'] %>
-
-                            </td>
-                            <td>
-                                <%= product['3_stars_count'] %>
-
-                            </td>
-                            <td>
-                                <%= product['4_stars_count'] %>
-
-                            </td>
-                            <td>
-                                <%= product['5_stars_count'] %>
-
-                            </td>
-                            <td>
-                                <img src="<%= product.image %>" style="max-width: 100px; max-height: 100px;">
-                            </td>
-                            <td>
-                                <%= product.units %>
-
-
-                            </td>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Brand</th>
+                            <th>Quantity</th>
+                            <th>URL</th>
+                            <th>Product ID</th>
+                            <th>Listing ID</th>
+                            <th>Highlights</th>
+                            <th>Availability</th>
+                            <th>Selling Price</th>
+                            <th>Original Price</th>
+                            <th>Currency</th>
+                            <th>Average Rating</th>
+                            <th>Rating Count</th>
+                            <th>Review Count</th>
+                            <th>1 Star Count</th>
+                            <th>2 Star Count</th>
+                            <th>3 Star Count</th>
+                            <th>4 Star Count</th>
+                            <th>5 Star Count</th>
+                            <th>Image</th>
+                            <th>Units</th>
 
                         </tr>
-                        <% }) %>
-                </tbody>
-            </table>
-
-            <nav>
-                <ul class="pagination">
-                    <% if (currentPage> 1) { %>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=<%= currentPage - 1 %>">&laquo;</a>
-                        </li>
-                        <% } %>
-                            <% for (let i=1; i <=totalPages; i++) { %>
-                                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
-                                    <a class="page-link" href="?page=<%= i %>">
-                                        <%= i %>
-                                    </a>
-                                </li>
-                                <% } %>
-                                    <% if (currentPage < totalPages) { %>
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page=<%= currentPage + 1 %>">&raquo;</a>
-                                        </li>
-                                        <% } %>
-                </ul>
-
-            </nav>
+                    </thead>
+                    <tbody>
 
 
+                        <% products.forEach(function(product) { %>
+                            <tr>
+                                <td>
+                                    <%= product.title %>
+
+                                </td>
+                                <td>
+                                    <%= product.category %>
+
+                                </td>
+                                <td>
+                                    <%= product.brand %>
+
+                                </td>
+                                <td>
+                                    <%= product.quantity %>
+
+                                </td>
+                                <td>
+                                    <%= product.url %>
+
+                                </td>
+                                <td>
+                                    <%= product.product_id %>
+
+                                </td>
+                                <td>
+                                    <%= product.listing_id %>
+
+                                </td>
+                                <td>
+                                    <%= product.highlights %>
+
+                                </td>
+                                <td>
+                                    <%= product.availability %>
+
+                                </td>
+                                <td>
+                                    <%= product.selling_price %>
+
+                                </td>
+                                <td>
+                                    <%= product.original_price %>
+
+                                </td>
+                                <td>
+                                    <%= product.currency %>
+
+                                </td>
+                                <td>
+                                    <%= product.avg_rating %>
+
+                                </td>
+                                <td>
+                                    <%= product.rating_count %>
+
+                                </td>
+                                <td>
+                                    <%= product.review_count %>
+
+                                </td>
+                                <td>
+                                    <%= product['1_stars_count'] %>
+
+                                </td>
+                                <td>
+                                    <%= product['2_stars_count'] %>
+
+                                </td>
+                                <td>
+                                    <%= product['3_stars_count'] %>
+
+                                </td>
+                                <td>
+                                    <%= product['4_stars_count'] %>
+
+                                </td>
+                                <td>
+                                    <%= product['5_stars_count'] %>
+
+                                </td>
+                                <td>
+                                    <img src="<%= product.image %>" style="max-width: 100px; max-height: 100px;">
+                                </td>
+                                <td>
+                                    <%= product.units %>
+
+
+                                </td>
+
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+
+                <nav>
+                    <ul class="pagination">
+                        <% if (currentPage> 1) { %>
+                            <li class="page-item">
+                                <a class="page-link" href="?page=<%= currentPage - 1 %>">&laquo;</a>
+                            </li>
+                            <% } %>
+                                <% for (let i=1; i <=totalPages; i++) { %>
+                                    <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                        <a class="page-link" href="?page=<%= i %>">
+                                            <%= i %>
+                                        </a>
+                                    </li>
+                                    <% } %>
+                                        <% if (currentPage < totalPages) { %>
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page=<%= currentPage + 1 %>">&raquo;</a>
+                                            </li>
+                                            <% } %>
+                    </ul>
+
+                </nav>
 
 
 
 
+
+
+            </div>
         </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#Filter").click(function () {
-                $("#filterForm").slideToggle();
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#Filter").click(function () {
+                    $("#filterForm").slideToggle();
+                });
             });
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
 
 
 
 
-</body>
+    </body>
 
 </html>

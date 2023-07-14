@@ -1,268 +1,444 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="UpdateProduct.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <style>
-        /* UpdateProduct.css */
-        .container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            /* Add gap to create spacing between cards */
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="UpdateProduct.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <style>
+            body {
+                background-image: linear-gradient(to right, rgb(31, 202, 116), rgb(4, 213, 40), rgb(122, 206, 53));
 
-        .card {
-            transition: transform 0.3s ease-in-out;
-            height: 150px;
-            width: 150px;
-            margin-bottom: 20px;
-            padding: 10px;
-            /* Add padding to create spacing between cards */
-            box-sizing: border-box;
-            /* Ensure padding does not affect card dimensions */
-        }
+            }
+
+            .card-img-top {
+                height: 100px;
+                width: 100px;
+                padding: auto;
+                align-self: center;
+
+            }
+
+            /* UpdateProduct.css */
+            .container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                align-items: center;
+                gap: 20px;
+                /* Add gap to create spacing between cards */
+            }
+
+            .card {
+                transition: transform 0.3s ease-in-out;
+                height: 150px;
+                width: 150px;
+                margin-bottom: 20px;
+                padding: 10px;
+                /* Add padding to create spacing between cards */
+                box-sizing: border-box;
+                /* Ensure padding does not affect card dimensions */
+            }
 
 
-        .card:hover {
-            transform: scale(1.05);
-        }
+            .card:hover {
+                transform: scale(1.05);
+            }
 
-        .pick-card.picked {
-            border: 2px solid purple;
-        }
+            .pick-card.picked {
+                border: 2px solid purple;
+            }
 
-        .update-container {
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-            /* Increase margin-bottom for spacing */
-            padding: 10px;
-        }
+            .update-container {
+                border: 1px solid #ccc;
+                margin-bottom: 20px;
+                /* Increase margin-bottom for spacing */
+                padding: 10px;
+            }
 
-        .update-form {
-            margin-top: 10px;
-        }
+            .update-form {
+                margin-top: 10px;
+            }
 
-        /* AddProduct.css */
-        .form-group {
-            margin-bottom: 20px;
-        }
+            /* AddProduct.css */
+            .form-group {
+                margin-bottom: 20px;
+            }
 
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
+            .btn-primary {
+                background-color: #007bff;
+                border-color: #007bff;
+            }
 
-        .btn-primary:hover {
-            background-color: #0069d9;
-            border-color: #0062cc;
-        }
+            .btn-primary:hover {
+                background-color: #0069d9;
+                border-color: #0062cc;
+            }
 
-        .btn-success {
-            background-color: #28a745;
-            border-color: #28a745;
-        }
+            .btn-success {
+                background-color: #28a745;
+                border-color: #28a745;
+            }
 
-        .btn-success:hover {
-            background-color: #218838;
-            border-color: #1e7e34;
-        }
+            .btn-success:hover {
+                background-color: #218838;
+                border-color: #1e7e34;
+            }
 
-        .pagination {
-            justify-content: center;
+            .pagination {
+                justify-content: center;
 
-        }
+            }
 
-        .form-control {
-            height: auto;
-            min-height: 50px;
-            font-size: 16px;
-            padding: 10px;
-        }
-    </style>
-    <title>Update Products</title>
-</head>
+            .form-control {
+                height: auto;
+                min-height: 50px;
+                font-size: 16px;
+                padding: 10px;
+            }
+        </style>
+        <title>Update Products</title>
+    </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">BloomBoost</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Users
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/user-list">List</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Products
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/add-product">Add New</a>
-                        <a class="dropdown-item" href="/update-product">Update</a>
-                        <a class="dropdown-item" href="/delete-product">Delete</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/product-list">List</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">BloomBoost</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Users
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/user-list">List</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Products
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/add-product">Add New</a>
+                            <a class="dropdown-item" href="/update-product">Update</a>
+                            <a class="dropdown-item" href="/delete-product">Delete</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/product-list">List</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-    <center>
-        <h1>Select Products to Update</h1>
-    </center>
-    <nav>
-        <ul class="pagination">
-            <% if (currentPage> 1) { %>
-                <li class="page-item">
-                    <a class="page-link" href="?page=<%= currentPage - 1 %>">&laquo;</a>
-                </li>
-                <% } %>
-                    <% for (let i=1; i <=totalPages; i++) { %>
-                        <li class="page-item <%= currentPage === i ? 'active' : '' %>">
-                            <a class="page-link" href="?page=<%= i %>">
-                                <%= i %>
-                            </a>
-                        </li>
-                        <% } %>
-                            <% if (currentPage < totalPages) { %>
-                                <li class="page-item">
-                                    <a class="page-link" href="?page=<%= currentPage + 1 %>">&raquo;</a>
-                                </li>
-                                <% } %>
-        </ul>
-
-    </nav>
-
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <% products.forEach(function(product) { %>
-                <div class=" col-md-2 mb-4">
-                    <div class="card pick-card" data-product-id="<%= product._id %>">
-                        <img src="<%= product.image %>" class="card-img-top" alt="<%= product.title %>"
-                            style="max-width: 150px; max-height: 150px;">
-                    </div>
-                </div>
-                <% }) %>
-        </div>
-    </div>
-
-    <div id="selected-products">
-        <% if (selectedProducts.length> 0) { %>
-            <h2>Selected Products:</h2>
-            <% selectedProducts.forEach(function(product) { %>
-
-                <% }) %>
-
+        <center>
+            <h1>Select Products to Update</h1>
+        </center>
+        <nav>
+            <ul class="pagination">
+                <% if (currentPage> 1) { %>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=<%= currentPage - 1 %>">&laquo;</a>
+                    </li>
                     <% } %>
+                        <% for (let i=1; i <=totalPages; i++) { %>
+                            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                <a class="page-link" href="?page=<%= i %>">
+                                    <%= i %>
+                                </a>
+                            </li>
+                            <% } %>
+                                <% if (currentPage < totalPages) { %>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=<%= currentPage + 1 %>">&raquo;</a>
+                                    </li>
+                                    <% } %>
+            </ul>
 
-    </div>
+        </nav>
+
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <% products.forEach(function(product) { %>
+                    <div class=" col-md-2 mb-4">
+                        <div class="card pick-card" data-product-id="<%= product._id %>">
+                            <img src="<%= product.image %>" class="card-img-top" alt="<%= product.title %>"
+                                style="max-width: 150px; max-height: 150px;">
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+
+        <div id="selected-products">
+            <% if (selectedProducts.length> 0) { %>
+                <h2>Selected Products:</h2>
+                <% selectedProducts.forEach(function(product) { %>
+
+                    <% }) %>
+
+                        <% } %>
+
+        </div>
 
 
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function () {
-            $(".pick-card").on("click", function () {
-                $(".pick-card").removeClass("picked");
-                $(this).toggleClass("picked");
-                $("#selected-products").empty();
-                $(".pick-card.picked").each(function () {
-                    var productId = $(this).data("product-id");
-                    var productTitle = $(this).find(".card-title").text();
-                    var updateContainer =
-                        '<div class="card-body">' +
-                        '<h3 class="card-title">' + productTitle + '</h3>' +
-                        '<div class="container">' +
-                        '<form class="update-form" action="/update-product/' + productId + '" method="POST">' +
-                        '<div class="form-group">' +
-                        '<label for="title">Title</label>' +
-                        '<input type="text" class="form-control" id="title" name="title" value="' + productTitle + '" >' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="category">Category</label>' +
-                        '<input type="text" class="form-control" id="category" name="category" >' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="brand">Brand</label>' +
-                        '<input type="text" class="form-control" id="brand" name="brand" >' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="quantity">Quantity</label>' +
-                        '<input type="text" class="form-control" id="quantity" name="quantity" >' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="url">URL</label>' +
-                        '<input type="text" class="form-control" id="url" name="url">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="highlights">Highlights</label>' +
-                        '<input type="text" class="form-control" id="highlights" name="highlights" >' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="availability">Availability</label>' +
-                        '<input type="text" class="form-control" id="availability" name="availability" >' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="selling_price">Selling Price</label>' +
-                        '<input type="number" class="form-control" id="selling_price" name="selling_price" placeholder="Selling Price" step="1" min="0" >' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="original_price">Original Price</label>' +
-                        '<input type="number" class="form-control" id="original_price" name="original_price" placeholder="Original Price" step="1" min="0" >' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="units">Units</label>' +
-                        '<input type="number" class="form-control" id="units" name="units" placeholder="Units" step="1" min="0">' +
-                        '</div>' +
-                        '<div class="form-group">' +
-                        '<label for="image">Image</label>' +
-                        '<input type="text" class="form-control" id="image" name="image" >' +
-                        '</div>' +
-                        '<button type="submit" class="btn btn-primary">Update</button>' +
-                        '</form>' +
-                        '</div>' +
-                        '</div>';
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function () {
+                $(".pick-card").on("click", function () {
+                    $(".pick-card").removeClass("picked");
+                    $(this).toggleClass("picked");
+                    $("#selected-products").empty();
+                    $(".pick-card.picked").each(function () {
+                        var productId = $(this).data("product-id");
+                        var productTitle = $(this).find(".card-title").text();
+                        var updateContainer =
+                            //     '<div class="card-body">' +
+                            //     '<h3 class="card-title">' + productTitle + '</h3>' +
+                            //     '<div class="container">' +
+                            //     '<form class="update-form" action="/update-product/' + productId + '" method="POST">' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="title">Title</label>' +
+                            //     '<input type="text" class="form-control" id="title" name="title" value="' + productTitle + '" >' +
+                            //     '</div>' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="category">Category</label>' +
+                            //     '<input type="text" class="form-control" id="category" name="category" >' +
+                            //     '</div>' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="brand">Brand</label>' +
+                            //     '<input type="text" class="form-control" id="brand" name="brand" >' +
+                            //     '</div>' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="quantity">Quantity</label>' +
+                            //     '<input type="text" class="form-control" id="quantity" name="quantity" >' +
+                            //     '</div>' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="url">URL</label>' +
+                            //     '<input type="text" class="form-control" id="url" name="url">' +
+                            //     '</div>' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="highlights">Highlights</label>' +
+                            //     '<input type="text" class="form-control" id="highlights" name="highlights" >' +
+                            //     '</div>' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="availability">Availability</label>' +
+                            //     '<input type="text" class="form-control" id="availability" name="availability" >' +
+                            //     '</div>' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="selling_price">Selling Price</label>' +
+                            //     '<input type="number" class="form-control" id="selling_price" name="selling_price" placeholder="Selling Price" step="1" min="0" >' +
+                            //     '</div>' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="original_price">Original Price</label>' +
+                            //     '<input type="number" class="form-control" id="original_price" name="original_price" placeholder="Original Price" step="1" min="0" >' +
+                            //     '</div>' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="units">Units</label>' +
+                            //     '<input type="number" class="form-control" id="units" name="units" placeholder="Units" step="1" min="0">' +
+                            //     '</div>' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="image">Image</label>' +
+                            //     '<input type="text" class="form-control" id="image" name="image" >' +
+                            //     '</div>' +
+                            //     '<button type="submit" class="btn btn-primary">Update</button>' +
+                            //     '</form>' +
+                            //     '</div>' +
+                            //     '</div>';
 
-                    $("#selected-products").append(updateContainer);
+                            // $("#selected-products").append(updateContainer);
 
+
+
+                            //     '<div class="card-body">' +
+
+                            //     '<h3 class="card-title">' + productTitle + '</h3>' +
+                            //     '<div class="container">' +
+                            //     '<form class="update-form" action="/update-product/' + productId + '" method="POST">' +
+                            //     '<div class="form-group">' +
+
+                            //     '<div class="row">' +
+                            //     '<div class="col-md-6">' +
+                            //     '<label for="title">Title</label>' +
+                            //     '<input type="text" class="form-control" id="title" name="title" value="' + productTitle + '">' +
+                            //     '</div>' +
+
+                            //     '<div class="col-md-6">' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="category">Category</label>' +
+                            //     '<input type="text" class="form-control" id="category" name="category">' +
+                            //     '</div>' +
+                            //     '</div>' +
+
+                            //     '<div class="row">' +
+                            //     '<div class="col-md-6">' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="brand">Brand</label>' +
+                            //     '<input type="text" class="form-control" id="brand" name="brand">' +
+                            //     '</div>' +
+                            //     '</div>' +
+
+                            //     '<div class="col-md-6">' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="quantity">Quantity</label>' +
+                            //     '<input type="text" class="form-control" id="quantity" name="quantity">' +
+                            //     '</div>' +
+                            //     '</div>' +
+
+                            //     '<div class="row">' +
+                            //     '<div class="col-md-6">' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="url">URL</label>' +
+                            //     '<input type="text" class="form-control" id="url" name="url">' +
+                            //     '</div>' +
+                            //     '</div>' +
+
+                            //     '<div class="col-md-6">' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="highlights">Highlights</label>' +
+                            //     '<input type="text" class="form-control" id="highlights" name="highlights">' +
+                            //     '</div>' +
+                            //     '</div>' +
+                            //     '<div class="row">' +
+                            //     '<div class="col-md-6">' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="availability">Availability</label>' +
+                            //     '<input type="text" class="form-control" id="availability" name="availability">' +
+                            //     '</div>' +
+                            //     '</div>' +
+                            //     '<div class="col-md-6">' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="selling_price">Selling Price</label>' +
+                            //     '<input type="number" class="form-control" id="selling_price" name="selling_price" placeholder="Selling Price" step="1" min="0">' +
+                            //     '</div>' +
+                            //     '</div>' +
+                            //     '</div>' +
+                            //     '<div class="row">' +
+                            //     '<div class="col-md-6">' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="original_price">Original Price</label>' +
+                            //     '<input type="number" class="form-control" id="original_price" name="original_price" placeholder="Original Price" step="1" min="0">' +
+                            //     '</div>' +
+                            //     '</div>' +
+                            //     '<div class="col-md-6">' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="units">Units</label>' +
+                            //     '<input type="number" class="form-control" id="units" name="units" placeholder="Units" step="1" min="0">' +
+                            //     '</div>' +
+                            //     '</div>' +
+                            //     '</div>' +
+                            //     '<div class="form-group">' +
+                            //     '<label for="image">Image</label>' +
+                            //     '<input type="text" class="form-control" id="image" name="image">' +
+                            //     '</div>' +
+                            //     '<button type="submit" class="btn btn-primary">Update</button>' +
+                            //     '</form>' +
+                            //     '</div>' +
+                            //     '</div>';
+
+                            // $("#selected-products").append(updateContainer);
+
+
+                            '<div class="card-body">' +
+                            '<h3 class="card-title">' + productTitle + '</h3>' +
+                            '<div class="container">' +
+                            '<form class="update-form" action="/update-product/' + productId + '" method="POST">' +
+                            '<div class="form-group">' +
+                            '<div class="row">' +
+                            '<div class="col-md-6">' +
+                            '<label for="title">Title</label>' +
+                            '<input type="text" class="form-control same-size-input" id="title" name="title" value="' + productTitle + '">' +
+                            '</div>' +
+                            '<div class="col-md-6">' +
+                            '<label for="category">Category</label>' +
+                            '<input type="text" class="form-control same-size-input" id="category" name="category">' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="row">' +
+                            '<div class="col-md-6">' +
+                            '<label for="brand">Brand</label>' +
+                            '<input type="text" class="form-control same-size-input" id="brand" name="brand">' +
+                            '</div>' +
+                            '<div class="col-md-6">' +
+                            '<label for="quantity">Quantity</label>' +
+                            '<input type="text" class="form-control same-size-input" id="quantity" name="quantity">' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="row">' +
+                            '<div class="col-md-6">' +
+                            '<label for="url">URL</label>' +
+                            '<input type="text" class="form-control same-size-input" id="url" name="url">' +
+                            '</div>' +
+                            '<div class="col-md-6">' +
+                            '<label for="highlights">Highlights</label>' +
+                            '<input type="text" class="form-control same-size-input" id="highlights" name="highlights">' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="row">' +
+                            '<div class="col-md-6">' +
+                            '<label for="availability">Availability</label>' +
+                            '<input type="text" class="form-control same-size-input" id="availability" name="availability">' +
+                            '</div>' +
+                            '<div class="col-md-6">' +
+                            '<label for="selling_price">Selling Price</label>' +
+                            '<input type="number" class="form-control same-size-input" id="selling_price" name="selling_price" placeholder="Selling Price" step="1" min="0">' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="row">' +
+                            '<div class="col-md-6">' +
+                            '<label for="original_price">Original Price</label>' +
+                            '<input type="number" class="form-control same-size-input" id="original_price" name="original_price" placeholder="Original Price" step="1" min="0">' +
+                            '</div>' +
+                            '<div class="col-md-6">' +
+                            '<label for="units">Units</label>' +
+                            '<input type="number" class="form-control same-size-input" id="units" name="units" placeholder="Units" step="1" min="0">' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="form-group">' +
+                            '<label for="image">Image</label>' +
+                            '<input type="text" class="form-control same-size-input" id="image" name="image">' +
+                            '</div>' +
+                            '<div class="d-flex justify-content-center">' +
+                            '<button type="submit" class="btn btn-primary ">Update</button>' +
+                            '</form>' +
+                            '</div>' +
+                            '</div>';
+
+                        $("#selected-products").append(updateContainer);
+
+
+
+
+
+                    });
+                });
+
+                $("#end-selection").on("click", function () {
+                    $(".pick-card.picked").removeClass("picked");
+                    $("#selected-products").empty();
                 });
             });
-
-            $("#end-selection").on("click", function () {
-                $(".pick-card.picked").removeClass("picked");
-                $("#selected-products").empty();
-            });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>

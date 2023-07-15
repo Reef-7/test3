@@ -571,7 +571,8 @@ app.get('/AdminHome', (req, res) => {
 app.get('/UserHome', async (req, res) => {
     try {
         const { name } = req.query;
-        const HelloMessage = 'Welcome Back ' + name;
+        //const HelloMessage = 'Welcome Back ' + name;
+        const HelloMessage = name ? 'Welcome Back ' + name : 'Welcome Back Maneger ';
 
         // Fetch 8 random products from the collection
         const products = await Product.aggregate([{ $sample: { size: 8 } }]);

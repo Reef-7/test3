@@ -837,9 +837,10 @@ app.post('/shop', async (req, res) => {
 
         const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
         const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
+        const endIndex = startIndex + 4;
 
 
-        const pipeline = [
+        /*const pipeline = [
             { $match: query },
             { $group: { _id: "$category", products: { $push: "$$ROOT" } } },
             { $skip: startIndex },
@@ -847,14 +848,21 @@ app.post('/shop', async (req, res) => {
         ];
 
         const selectedProducts = await Product.aggregate(pipeline);
-        const totalProducts = await Product.countDocuments(query);
-        const totalPages = Math.ceil(totalProducts / 4); // Calculate the total number of pages
 
-        res.render('shop', {
+        const totalProducts = await Product.countDocuments(query);*/
+        const products = await Product.find(query).lean();
+        const totalPages = Math.ceil(products.length / 4); // Calculate the total number of pages
+        const displayedProducts = products.slice(startIndex, endIndex); // Slice the products array based on the current page and the number of products per page
+        const selectedProducts = []; // Initialize an empty array for selected products
+
+
+        /*res.render('shop', {
             products: selectedProducts,
             currentPage: page,
             totalPages
-        });
+        });*/
+
+        res.render('shop', { products: displayedProducts, selectedProducts, currentPage: page, totalPages });
     } catch (error) {
         console.log('Error applying filters:', error);
         res.status(500).send('Internal Server Error');
@@ -863,34 +871,48 @@ app.post('/shop', async (req, res) => {
 
 app.get('/shop', async (req, res) => {
     try {
+        //const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
+        //const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
+
+        /* const filters = {
+             title: req.query.title,
+             category: req.query.category,
+             brand: req.query.brand,
+             original_price: req.body.original_price,
+             quantity: req.query.quantity,
+             avg_rating: req.query.avg_rating
+         };
+ 
+         const query = {};
+         for (const field in filters) {
+             if (filters[field]) {
+                 query[field] = filters[field];
+             }
+         }
+ 
+         const products = await Product.find(query).skip(startIndex).limit(4).lean();
+         const totalProducts = await Product.countDocuments(query);
+         const totalPages = Math.ceil(totalProducts / 4); // Calculate the total number of pages
+ 
+         res.render('shop', {
+             products: products,
+             currentPage: page,
+             totalPages
+         });*/
         const page = parseInt(req.query.page) || 1; // Get the current page from the query parameters
         const startIndex = (page - 1) * 4; // Calculate the starting index based on the current page
+        const endIndex = startIndex + 4; // Calculate the ending index based on the current page
 
-        const filters = {
-            title: req.query.title,
-            category: req.query.category,
-            brand: req.query.brand,
-            original_price: req.body.original_price,
-            quantity: req.query.quantity,
-            avg_rating: req.query.avg_rating
-        };
+        // Fetch the product data from your database or any other source
+        const products = await Product.find({}).lean();
 
-        const query = {};
-        for (const field in filters) {
-            if (filters[field]) {
-                query[field] = filters[field];
-            }
-        }
+        const totalPages = Math.ceil(products.length / 4); // Calculate the total number of pages
 
-        const products = await Product.find(query).skip(startIndex).limit(4).lean();
-        const totalProducts = await Product.countDocuments(query);
-        const totalPages = Math.ceil(totalProducts / 4); // Calculate the total number of pages
+        // Slice the products array based on the current page and the number of products per page
+        const displayedProducts = products.slice(startIndex, endIndex);
 
-        res.render('shop', {
-            products: products,
-            currentPage: page,
-            totalPages
-        });
+        const selectedProducts = []; // Initialize an empty array for selected products
+        res.render('shop', { products: displayedProducts, selectedProducts, currentPage: page, totalPages });
     } catch (error) {
         console.log('Error retrieving products:', error);
         res.status(500).send('Internal Server Error');

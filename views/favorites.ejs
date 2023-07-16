@@ -1,784 +1,785 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favorites</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <a href="https://codepen.io/simeydotme/pen/abYWJdX" target="_blank"></a>
-    <style>
-        .card {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
-            width: calc(16.66% - 20px);
-            /* Set the width to occupy 1/6th of the container width with some spacing */
-            margin: 10px;
-            /* Add some spacing between cards */
-        }
-
-        .title {
-            font-weight: bold;
-        }
-
-        .brand {
-            color: #888;
-        }
-
-        .price {
-            color: #888;
-            font-size: 0.9em;
-        }
-
-        :root {
-            --color1: rgb(0, 231, 255);
-            --color2: rgb(255, 0, 231);
-            --back: url(https://cdn2.bulbagarden.net/upload/1/17/Cardback.jpg);
-
-        }
-
-
-
-        .card {
-
-            width: 71.5vw;
-            height: 100vw;
-
-            width: clamp(200px, 61vh, 18vw);
-            height: clamp(280px, 85vh, 25.2vw);
-
-            @media screen and (min-width: 600px) {
-                width: 61vh;
-                height: 85vh;
-                max-width: 500px;
-                max-height: 700px;
-                width: clamp(12.9vw, 61vh, 18vw);
-                height: clamp(18vw, 85vh, 25.2vw);
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Favorites</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <a href="https://codepen.io/simeydotme/pen/abYWJdX" target="_blank"></a>
+        <style>
+            .card {
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 10px;
+                margin-bottom: 10px;
+                width: calc(16.66% - 20px);
+                /* Set the width to occupy 1/6th of the container width with some spacing */
+                margin: 10px;
+                /* Add some spacing between cards */
             }
 
-            position: relative;
-            overflow: hidden;
-            margin: 20px;
-            overflow: hidden;
-            z-index: 10;
-            touch-action: none;
+            .title {
+                font-weight: bold;
+            }
 
-            border-radius: 5% / 3.5%;
-            box-shadow: -5px -5px 5px -5px var(--color1),
-            5px 5px 5px -5px var(--color2),
-            -7px -7px 10px -5px transparent,
-            7px 7px 10px -5px transparent,
-            0 0 5px 0px rgba(255, 255, 255, 0),
-            0 55px 35px -20px rgba(0, 0, 0, 0.5);
+            .brand {
+                color: #888;
+            }
 
-            transition: transform 0.5s ease,
-            box-shadow 0.2s ease;
-            will-change: transform,
-            filter;
+            .price {
+                color: #888;
+                font-size: 0.9em;
+            }
 
-            background-color: #040712;
-            background-image: var(--front);
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: 50% 50%;
-            transform-origin: center;
+            :root {
+                --color1: rgb(0, 231, 255);
+                --color2: rgb(255, 0, 231);
+                --back: url(https://cdn2.bulbagarden.net/upload/1/17/Cardback.jpg);
 
-        }
+            }
 
-        .card:hover {
-            box-shadow:
-                -20px -20px 30px -25px var(--color1),
-                20px 20px 30px -25px var(--color2),
-                -7px -7px 10px -5px var(--color1),
-                7px 7px 10px -5px var(--color2),
-                0 0 13px 4px rgba(255, 255, 255, 0.3),
+
+
+            .card {
+
+                width: 71.5vw;
+                height: 100vw;
+
+                width: clamp(200px, 61vh, 18vw);
+                height: clamp(280px, 85vh, 25.2vw);
+
+                @media screen and (min-width: 600px) {
+                    width: 61vh;
+                    height: 85vh;
+                    max-width: 500px;
+                    max-height: 700px;
+                    width: clamp(12.9vw, 61vh, 18vw);
+                    height: clamp(18vw, 85vh, 25.2vw);
+                }
+
+                position: relative;
+                overflow: hidden;
+                margin: 20px;
+                overflow: hidden;
+                z-index: 10;
+                touch-action: none;
+
+                border-radius: 5% / 3.5%;
+                box-shadow: -5px -5px 5px -5px var(--color1),
+                5px 5px 5px -5px var(--color2),
+                -7px -7px 10px -5px transparent,
+                7px 7px 10px -5px transparent,
+                0 0 5px 0px rgba(255, 255, 255, 0),
                 0 55px 35px -20px rgba(0, 0, 0, 0.5);
-        }
 
+                transition: transform 0.5s ease,
+                box-shadow 0.2s ease;
+                will-change: transform,
+                filter;
 
-
-        .card:before,
-        .card:after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            top: 0;
-            background-repeat: no-repeat;
-            opacity: .5;
-            mix-blend-mode: color-dodge;
-            transition: all .33s ease;
-        }
-
-        .card:before {
-            background-position: 50% 50%;
-            background-size: 300% 300%;
-            background-image: linear-gradient(115deg,
-                    transparent 0%,
-                    var(--color1) 25%,
-                    transparent 47%,
-                    transparent 53%,
-                    var(--color2) 75%,
-                    transparent 100%);
-            opacity: .5;
-            filter: brightness(.5) contrast(1);
-            z-index: 1;
-        }
-
-        .card:after {
-            opacity: 1;
-            background-image: url("https://assets.codepen.io/13471/sparkles.gif"),
-                url(https://assets.codepen.io/13471/holo.png),
-                linear-gradient(125deg, #ff008450 15%, #fca40040 30%, #ffff0030 40%, #00ff8a20 60%, #00cfff40 70%, #cc4cfa50 85%);
-            background-position: 50% 50%;
-            background-size: 160%;
-            background-blend-mode: overlay;
-            z-index: 2;
-            filter: brightness(1) contrast(1);
-            transition: all .33s ease;
-            mix-blend-mode: color-dodge;
-            opacity: .75;
-        }
-
-        .card.active:after,
-        .card:hover:after {
-            filter: brightness(1) contrast(1);
-            ;
-            opacity: 1;
-        }
-
-        .card.active,
-        .card:hover {
-            animation: none;
-            transition: box-shadow 0.1s ease-out;
-        }
-
-        .card.active:before,
-        .card:hover:before {
-            animation: none;
-            background-image: linear-gradient(110deg,
-                    transparent 25%,
-                    var(--color1) 48%,
-                    var(--color2) 52%,
-                    transparent 75%);
-            background-position: 50% 50%;
-            background-size: 250% 250%;
-            opacity: .88;
-            filter: brightness(.66) contrast(1.33);
-            transition: none;
-        }
-
-        .card.active:before,
-        .card:hover:before,
-        .card.active:after,
-        .card:hover:after {
-            animation: none;
-            transition: none;
-        }
-
-        .card.animated {
-            transition: none;
-            animation: holoCard 12s ease 0s 1;
-
-            &:before {
-                transition: none;
-                animation: holoGradient 12s ease 0s 1;
-            }
-
-            &:after {
-                transition: none;
-                animation: holoSparkle 12s ease 0s 1;
-            }
-        }
-
-
-
-
-        @keyframes holoSparkle {
-
-            0%,
-            100% {
-                opacity: .75;
+                background-color: #040712;
+                background-image: var(--front);
+                background-size: cover;
+                background-repeat: no-repeat;
                 background-position: 50% 50%;
-                filter: brightness(1.2) contrast(1.25);
+                transform-origin: center;
+
             }
 
-            5%,
-            8% {
-                opacity: 1;
-                background-position: 40% 40%;
-                filter: brightness(.8) contrast(1.2);
+            .card:hover {
+                box-shadow:
+                    -20px -20px 30px -25px var(--color1),
+                    20px 20px 30px -25px var(--color2),
+                    -7px -7px 10px -5px var(--color1),
+                    7px 7px 10px -5px var(--color2),
+                    0 0 13px 4px rgba(255, 255, 255, 0.3),
+                    0 55px 35px -20px rgba(0, 0, 0, 0.5);
             }
 
-            13%,
-            16% {
+
+
+            .card:before,
+            .card:after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                top: 0;
+                background-repeat: no-repeat;
                 opacity: .5;
-                background-position: 50% 50%;
-                filter: brightness(1.2) contrast(.8);
+                mix-blend-mode: color-dodge;
+                transition: all .33s ease;
             }
 
-            35%,
-            38% {
+            .card:before {
+                background-position: 50% 50%;
+                background-size: 300% 300%;
+                background-image: linear-gradient(115deg,
+                        transparent 0%,
+                        var(--color1) 25%,
+                        transparent 47%,
+                        transparent 53%,
+                        var(--color2) 75%,
+                        transparent 100%);
+                opacity: .5;
+                filter: brightness(.5) contrast(1);
+                z-index: 1;
+            }
+
+            .card:after {
                 opacity: 1;
-                background-position: 60% 60%;
+                background-image: url("https://assets.codepen.io/13471/sparkles.gif"),
+                    url(https://assets.codepen.io/13471/holo.png),
+                    linear-gradient(125deg, #ff008450 15%, #fca40040 30%, #ffff0030 40%, #00ff8a20 60%, #00cfff40 70%, #cc4cfa50 85%);
+                background-position: 50% 50%;
+                background-size: 160%;
+                background-blend-mode: overlay;
+                z-index: 2;
                 filter: brightness(1) contrast(1);
+                transition: all .33s ease;
+                mix-blend-mode: color-dodge;
+                opacity: .75;
             }
 
-            55% {
-                opacity: .33;
-                background-position: 45% 45%;
-                filter: brightness(1.2) contrast(1.25);
-            }
-        }
-
-        @keyframes holoGradient {
-
-            0%,
-            100% {
-                opacity: 0.5;
-                background-position: 50% 50%;
-                filter: brightness(.5) contrast(1);
-            }
-
-            5%,
-            9% {
-                background-position: 100% 100%;
+            .card.active:after,
+            .card:hover:after {
+                filter: brightness(1) contrast(1);
+                ;
                 opacity: 1;
-                filter: brightness(.75) contrast(1.25);
             }
 
-            13%,
-            17% {
-                background-position: 0% 0%;
-                opacity: .88;
-            }
-
-            35%,
-            39% {
-                background-position: 100% 100%;
-                opacity: 1;
-                filter: brightness(.5) contrast(1);
-            }
-
-            55% {
-                background-position: 0% 0%;
-                opacity: 1;
-                filter: brightness(.75) contrast(1.25);
-            }
-        }
-
-        @keyframes holoCard {
-
-            0%,
-            100% {
-                transform: rotateZ(0deg) rotateX(0deg) rotateY(0deg);
-            }
-
-            5%,
-            8% {
-                transform: rotateZ(0deg) rotateX(6deg) rotateY(-20deg);
-            }
-
-            13%,
-            16% {
-                transform: rotateZ(0deg) rotateX(-9deg) rotateY(32deg);
-            }
-
-            35%,
-            38% {
-                transform: rotateZ(3deg) rotateX(12deg) rotateY(20deg);
-            }
-
-            55% {
-                transform: rotateZ(-3deg) rotateX(-12deg) rotateY(-27deg);
-            }
-        }
-
-
-
-
-
-
-
-
-        .demo .card {
-            background-image: var(--back);
-            font-size: 2vh
-        }
-
-        .demo .card>span {
-            position: relative;
-            top: 45%;
-        }
-
-        .demo .card:nth-of-type(1),
-        .demo .card:nth-of-type(2),
-        .demo .card:nth-of-type(3) {
-            width: 20vh;
-            height: 27.5vh;
-            box-shadow: inset 0 0 0 1px rgba(white, 0.4), 0 25px 15px -10px rgba(0, 0, 0, 0.5);
-            animation: none;
-        }
-
-        .demo .card:nth-of-type(1),
-        .demo .card:nth-of-type(2),
-        .demo .card:nth-of-type(3) {
-
-            &:before,
-            &:after {
+            .card.active,
+            .card:hover {
                 animation: none;
-                opacity: 1;
+                transition: box-shadow 0.1s ease-out;
             }
-        }
 
-        .demo .card:nth-of-type(1) {
-
-            &:before,
-            &:after {
-                display: none;
+            .card.active:before,
+            .card:hover:before {
+                animation: none;
+                background-image: linear-gradient(110deg,
+                        transparent 25%,
+                        var(--color1) 48%,
+                        var(--color2) 52%,
+                        transparent 75%);
+                background-position: 50% 50%;
+                background-size: 250% 250%;
+                opacity: .88;
+                filter: brightness(.66) contrast(1.33);
+                transition: none;
             }
-        }
 
-        .demo .card:nth-of-type(2) {
-            background: none;
-
-            &:before {
-                display: none;
+            .card.active:before,
+            .card:hover:before,
+            .card.active:after,
+            .card:hover:after {
+                animation: none;
+                transition: none;
             }
-        }
 
-        .demo .card:nth-of-type(3) {
-            background: none;
+            .card.animated {
+                transition: none;
+                animation: holoCard 12s ease 0s 1;
 
-            &:after {
-                display: none;
-            }
-        }
+                &:before {
+                    transition: none;
+                    animation: holoGradient 12s ease 0s 1;
+                }
 
-        .operator {
-            display: inline-block;
-            vertical-align: middle;
-            font-size: 6vh;
-        }
-
-
-
-
-
-
-        html,
-        body {
-            height: 100%;
-            background-color: #333844;
-            padding: 0;
-            z-index: 1;
-            transform: translate3d(0, 0, 0.1px);
-        }
-
-        body {
-            color: white;
-            background-color: #333844;
-            font-family: "Heebo", sans-serif;
-            text-align: center;
-        }
-
-        h1 {
-            display: block;
-            margin: 30px 0;
-        }
-
-        p {
-            margin-top: 5px;
-            font-weight: 200;
-        }
-
-        #app {
-            position: relative;
-        }
-
-        .demo,
-        .cards {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-evenly;
-            perspective: 2000px;
-            position: relative;
-            z-index: 1;
-            transform: translate3d(0.1px, 0.1px, 0.1px)
-        }
-
-        .demo {
-            flex-direction: row;
-            justify-content: center;
-        }
-
-        @media screen and (max-width: 1200px) {
-            .card {
-                width: calc(20% - 20px);
-                /* Set the width to occupy 1/5th of the container width with some spacing */
-            }
-        }
-
-        @media screen and (max-width: 992px) {
-            .card {
-                width: calc(25% - 20px);
-                /* Set the width to occupy 1/4th of the container width with some spacing */
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            .card {
-                width: calc(33.33% - 20px);
-                /* Set the width to occupy 1/3rd of the container width with some spacing */
-            }
-        }
-
-        @media screen and (max-width: 576px) {
-            .card {
-                width: calc(50% - 20px);
-                /* Set the width to occupy 1/2 of the container width with some spacing */
-            }
-        }
-
-
-
-
-
-
-
-        .cards .card {
-            &:nth-child(2) {
-
-                &,
-                &:before,
                 &:after {
-                    animation-delay: 0.25s;
+                    transition: none;
+                    animation: holoSparkle 12s ease 0s 1;
                 }
             }
 
-            &:nth-child(3) {
 
-                &,
-                &:before,
-                &:after {
-                    animation-delay: 0.5s;
+
+
+            @keyframes holoSparkle {
+
+                0%,
+                100% {
+                    opacity: .75;
+                    background-position: 50% 50%;
+                    filter: brightness(1.2) contrast(1.25);
+                }
+
+                5%,
+                8% {
+                    opacity: 1;
+                    background-position: 40% 40%;
+                    filter: brightness(.8) contrast(1.2);
+                }
+
+                13%,
+                16% {
+                    opacity: .5;
+                    background-position: 50% 50%;
+                    filter: brightness(1.2) contrast(.8);
+                }
+
+                35%,
+                38% {
+                    opacity: 1;
+                    background-position: 60% 60%;
+                    filter: brightness(1) contrast(1);
+                }
+
+                55% {
+                    opacity: .33;
+                    background-position: 45% 45%;
+                    filter: brightness(1.2) contrast(1.25);
                 }
             }
 
-            &:nth-child(4) {
+            @keyframes holoGradient {
 
-                &,
-                &:before,
-                &:after {
-                    animation-delay: 0.75s;
+                0%,
+                100% {
+                    opacity: 0.5;
+                    background-position: 50% 50%;
+                    filter: brightness(.5) contrast(1);
+                }
+
+                5%,
+                9% {
+                    background-position: 100% 100%;
+                    opacity: 1;
+                    filter: brightness(.75) contrast(1.25);
+                }
+
+                13%,
+                17% {
+                    background-position: 0% 0%;
+                    opacity: .88;
+                }
+
+                35%,
+                39% {
+                    background-position: 100% 100%;
+                    opacity: 1;
+                    filter: brightness(.5) contrast(1);
+                }
+
+                55% {
+                    background-position: 0% 0%;
+                    opacity: 1;
+                    filter: brightness(.75) contrast(1.25);
                 }
             }
-        }
 
+            @keyframes holoCard {
 
-        p {
-            font-weight: 400;
-            font-size: 18px;
-            padding: 1em;
-            background: rgba(0, 0, 0, 0.3);
-            margin-top: 0;
-            animation: rubberBand 1.5s linear 3s 1;
-        }
+                0%,
+                100% {
+                    transform: rotateZ(0deg) rotateX(0deg) rotateY(0deg);
+                }
 
-        .promo {
-            margin-top: 50px;
-        }
+                5%,
+                8% {
+                    transform: rotateZ(0deg) rotateX(6deg) rotateY(-20deg);
+                }
 
-        .promo img {
-            margin-top: 10px;
-            max-width: 80%;
-        }
+                13%,
+                16% {
+                    transform: rotateZ(0deg) rotateX(-9deg) rotateY(32deg);
+                }
 
-        p a {
-            color: cyan;
-        }
+                35%,
+                38% {
+                    transform: rotateZ(3deg) rotateX(12deg) rotateY(20deg);
+                }
 
-        html,
-        body,
-        main {
-            min-height: 100%;
-        }
-
-
-
-        @keyframes rubberBand {
-            from {
-                transform: scale3d(1, 1, 1);
+                55% {
+                    transform: rotateZ(-3deg) rotateX(-12deg) rotateY(-27deg);
+                }
             }
 
-            30% {
-                transform: scale3d(1.25, 0.75, 1);
+
+
+
+
+
+
+
+            .demo .card {
+                background-image: var(--back);
+                font-size: 2vh
             }
 
-            40% {
-                transform: scale3d(0.75, 1.25, 1);
+            .demo .card>span {
+                position: relative;
+                top: 45%;
             }
 
-            50% {
-                transform: scale3d(1.15, 0.85, 1);
+            .demo .card:nth-of-type(1),
+            .demo .card:nth-of-type(2),
+            .demo .card:nth-of-type(3) {
+                width: 20vh;
+                height: 27.5vh;
+                box-shadow: inset 0 0 0 1px rgba(white, 0.4), 0 25px 15px -10px rgba(0, 0, 0, 0.5);
+                animation: none;
             }
 
-            65% {
-                transform: scale3d(0.95, 1.05, 1);
+            .demo .card:nth-of-type(1),
+            .demo .card:nth-of-type(2),
+            .demo .card:nth-of-type(3) {
+
+                &:before,
+                &:after {
+                    animation: none;
+                    opacity: 1;
+                }
             }
 
-            75% {
-                transform: scale3d(1.05, 0.95, 1);
+            .demo .card:nth-of-type(1) {
+
+                &:before,
+                &:after {
+                    display: none;
+                }
             }
 
-            to {
-                transform: scale3d(1, 1, 1);
+            .demo .card:nth-of-type(2) {
+                background: none;
+
+                &:before {
+                    display: none;
+                }
             }
-        }
-    </style>
-</head>
 
-<body>
-    <h1>Favorites</h1>
+            .demo .card:nth-of-type(3) {
+                background: none;
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">BloomBoost</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
-                </li>
+                &:after {
+                    display: none;
+                }
+            }
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/shop">Shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/favorites">Favorites</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact Us</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/cart">Cart
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-cart4" viewBox="0 0 16 16">
-                            <path
-                                d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
-                        </svg>
-                    </a>
-                </li>
+            .operator {
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 6vh;
+            }
 
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Log out</a>
-                </li>
 
 
-            </ul>
 
+
+            html,
+            body {
+                height: 100%;
+                background-color: #333844;
+                padding: 0;
+                z-index: 1;
+                transform: translate3d(0, 0, 0.1px);
+            }
+
+            body {
+                color: white;
+                background-color: #333844;
+                font-family: "Heebo", sans-serif;
+                text-align: center;
+            }
+
+            h1 {
+                display: block;
+                margin: 30px 0;
+            }
+
+            p {
+                margin-top: 5px;
+                font-weight: 200;
+            }
+
+            #app {
+                position: relative;
+            }
+
+            .demo,
+            .cards {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-evenly;
+                perspective: 2000px;
+                position: relative;
+                z-index: 1;
+                transform: translate3d(0.1px, 0.1px, 0.1px)
+            }
+
+            .demo {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            @media screen and (max-width: 1200px) {
+                .card {
+                    width: calc(20% - 20px);
+                    /* Set the width to occupy 1/5th of the container width with some spacing */
+                }
+            }
+
+            @media screen and (max-width: 992px) {
+                .card {
+                    width: calc(25% - 20px);
+                    /* Set the width to occupy 1/4th of the container width with some spacing */
+                }
+            }
+
+            @media screen and (max-width: 768px) {
+                .card {
+                    width: calc(33.33% - 20px);
+                    /* Set the width to occupy 1/3rd of the container width with some spacing */
+                }
+            }
+
+            @media screen and (max-width: 576px) {
+                .card {
+                    width: calc(50% - 20px);
+                    /* Set the width to occupy 1/2 of the container width with some spacing */
+                }
+            }
+
+
+
+
+
+
+
+            .cards .card {
+                &:nth-child(2) {
+
+                    &,
+                    &:before,
+                    &:after {
+                        animation-delay: 0.25s;
+                    }
+                }
+
+                &:nth-child(3) {
+
+                    &,
+                    &:before,
+                    &:after {
+                        animation-delay: 0.5s;
+                    }
+                }
+
+                &:nth-child(4) {
+
+                    &,
+                    &:before,
+                    &:after {
+                        animation-delay: 0.75s;
+                    }
+                }
+            }
+
+
+            p {
+                font-weight: 400;
+                font-size: 18px;
+                padding: 1em;
+                background: rgba(0, 0, 0, 0.3);
+                margin-top: 0;
+                animation: rubberBand 1.5s linear 3s 1;
+            }
+
+            .promo {
+                margin-top: 50px;
+            }
+
+            .promo img {
+                margin-top: 10px;
+                max-width: 80%;
+            }
+
+            p a {
+                color: cyan;
+            }
+
+            html,
+            body,
+            main {
+                min-height: 100%;
+            }
+
+
+
+            @keyframes rubberBand {
+                from {
+                    transform: scale3d(1, 1, 1);
+                }
+
+                30% {
+                    transform: scale3d(1.25, 0.75, 1);
+                }
+
+                40% {
+                    transform: scale3d(0.75, 1.25, 1);
+                }
+
+                50% {
+                    transform: scale3d(1.15, 0.85, 1);
+                }
+
+                65% {
+                    transform: scale3d(0.95, 1.05, 1);
+                }
+
+                75% {
+                    transform: scale3d(1.05, 0.95, 1);
+                }
+
+                to {
+                    transform: scale3d(1, 1, 1);
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">BloomBoost</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shop">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/favorites">Favorites</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact Us</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cart">Cart
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-cart4" viewBox="0 0 16 16">
+                                <path
+                                    d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                            </svg>
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Log out</a>
+                    </li>
+
+
+                </ul>
+
+            </div>
+
+        </nav>
+        <h1>Favorites</h1>
+        <div id="product-container" class="card-container">
+            <% favoriteProducts.forEach(function(product) { %>
+                <a href="/product/<%= product._id %>">
+                    <div class="card" class="col-lg-2 col-md-4 col-sm-6">
+
+                        <span>
+                            <div class="title">
+                                <%= product.title %>
+                            </div>
+                            <div class="brand">
+                                <%= product.brand %>
+                            </div>
+                            <div class="price">Original Price: <%= product.original_price %>
+                            </div>
+                            <img class="card-img-top" src="<%= product.image %>" alt="<%= product.title %>" />
+
+                    </div>
+                    </span>
+                </a>
         </div>
+        <% }) %>
+            </div>
 
-    </nav>
-    <div id="product-container" class="card-container">
-        <% favoriteProducts.forEach(function(product) { %>
-            <a href="/product/<%= product._id %>">
-                <div class="card" class="col-lg-2 col-md-4 col-sm-6">
+            <footer class="bg-dark text-center text-white">
 
-                    <span>
-                        <div class="title">
-                            <%= product.title %>
-                        </div>
-                        <div class="brand">
-                            <%= product.brand %>
-                        </div>
-                        <div class="price">Original Price: <%= product.original_price %>
-                        </div>
-                        <img class="card-img-top" src="<%= product.image %>" alt="<%= product.title %>" />
+                <div class="container p-4">
+
+                    <section class="mb-4">
+
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-facebook" viewBox="0 0 16 16">
+                                <path
+                                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                            </svg>
+                        </a>
+
+
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-twitter" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                            </svg></a>
+
+
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-google" viewBox="0 0 16 16">
+                                <path
+                                    d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                            </svg></a>
+
+
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-instagram" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                            </svg></a>
+
+
+
+                        <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/Reef-7/test3"
+                            role="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                            </svg></a>
+                    </section>
+
+
+
+                    <section class="">
+                        <form action="">
+
+                            <div class="row d-flex justify-content-center">
+
+                                <div class="col-auto">
+                                    <p class="pt-2">
+                                        <strong>Sign up for our newsletter</strong>
+                                    </p>
+                                </div>
+
+
+
+                                <div class="col-md-5 col-12">
+
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="email" id="form5Example21" class="form-control" />
+                                        <label class="form-label" for="form5Example21">Email address</label>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-auto">
+
+                                    <button type="submit" class="btn btn-outline-light mb-4">
+                                        Subscribe
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </section>
+
+
+
 
                 </div>
-                </span>
-            </a>
-    </div>
-    <% }) %>
-        </div>
-
-        <footer class="bg-dark text-center text-white">
-
-            <div class="container p-4">
-
-                <section class="mb-4">
-
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-facebook" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
-                        </svg>
-                    </a>
-
-
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-twitter" viewBox="0 0 16 16">
-                            <path
-                                d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
-                        </svg></a>
-
-
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-google" viewBox="0 0 16 16">
-                            <path
-                                d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
-                        </svg></a>
-
-
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-instagram" viewBox="0 0 16 16">
-                            <path
-                                d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
-                        </svg></a>
 
 
 
-                    <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/Reef-7/test3"
-                        role="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-github" viewBox="0 0 16 16">
-                            <path
-                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-                        </svg></a>
-                </section>
+                <div class="text-center p-3" style="background-color: rgba(44, 14, 238, 0.721);">
+                    © 2020 Copyright:
+                    <a class="text-white" href="https://mdbootstrap.com/">CompanyName</a>
+                </div>
 
 
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+                <script>
+                    var x;
+                    var $cards = $(".card");
+                    var $style = $(".hover");
 
-                <section class="">
-                    <form action="">
-
-                        <div class="row d-flex justify-content-center">
-
-                            <div class="col-auto">
-                                <p class="pt-2">
-                                    <strong>Sign up for our newsletter</strong>
-                                </p>
-                            </div>
-
-
-
-                            <div class="col-md-5 col-12">
-
-                                <div class="form-outline form-white mb-4">
-                                    <input type="email" id="form5Example21" class="form-control" />
-                                    <label class="form-label" for="form5Example21">Email address</label>
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-auto">
-
-                                <button type="submit" class="btn btn-outline-light mb-4">
-                                    Subscribe
-                                </button>
-                            </div>
-
-                        </div>
-
-                    </form>
-                </section>
-
-
-
-
-            </div>
-
-
-
-            <div class="text-center p-3" style="background-color: rgba(44, 14, 238, 0.721);">
-                © 2020 Copyright:
-                <a class="text-white" href="https://mdbootstrap.com/">CompanyName</a>
-            </div>
-
-
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-            <script>
-                var x;
-                var $cards = $(".card");
-                var $style = $(".hover");
-
-                $cards
-                    .on("mousemove touchmove", function (e) {
-                        // normalise touch/mouse
-                        var pos = [e.offsetX, e.offsetY];
-                        e.preventDefault();
-                        if (e.type === "touchmove") {
-                            pos = [e.touches[0].clientX, e.touches[0].clientY];
-                        }
-                        var $card = $(this);
-                        // math for mouse position
-                        var l = pos[0];
-                        var t = pos[1];
-                        var h = $card.height();
-                        var w = $card.width();
-                        var px = Math.abs(Math.floor(100 / w * l) - 100);
-                        var py = Math.abs(Math.floor(100 / h * t) - 100);
-                        var pa = (50 - px) + (50 - py);
-                        // math for gradient / background positions
-                        var lp = (50 + (px - 50) / 1.5);
-                        var tp = (50 + (py - 50) / 1.5);
-                        var px_spark = (50 + (px - 50) / 7);
-                        var py_spark = (50 + (py - 50) / 7);
-                        var p_opc = 20 + (Math.abs(pa) * 1.5);
-                        var ty = ((tp - 50) / 2) * -1;
-                        var tx = ((lp - 50) / 1.5) * .5;
-                        // css to apply for active card
-                        var grad_pos = `background-position: ${lp}% ${tp}%;`
-                        var sprk_pos = `background-position: ${px_spark}% ${py_spark}%;`
-                        var opc = `opacity: ${p_opc / 100};`
-                        var tf = `transform: rotateX(${ty}deg) rotateY(${tx}deg)`
-                        // need to use a <style> tag for psuedo elements
-                        var style = `
+                    $cards
+                        .on("mousemove touchmove", function (e) {
+                            // normalise touch/mouse
+                            var pos = [e.offsetX, e.offsetY];
+                            e.preventDefault();
+                            if (e.type === "touchmove") {
+                                pos = [e.touches[0].clientX, e.touches[0].clientY];
+                            }
+                            var $card = $(this);
+                            // math for mouse position
+                            var l = pos[0];
+                            var t = pos[1];
+                            var h = $card.height();
+                            var w = $card.width();
+                            var px = Math.abs(Math.floor(100 / w * l) - 100);
+                            var py = Math.abs(Math.floor(100 / h * t) - 100);
+                            var pa = (50 - px) + (50 - py);
+                            // math for gradient / background positions
+                            var lp = (50 + (px - 50) / 1.5);
+                            var tp = (50 + (py - 50) / 1.5);
+                            var px_spark = (50 + (px - 50) / 7);
+                            var py_spark = (50 + (py - 50) / 7);
+                            var p_opc = 20 + (Math.abs(pa) * 1.5);
+                            var ty = ((tp - 50) / 2) * -1;
+                            var tx = ((lp - 50) / 1.5) * .5;
+                            // css to apply for active card
+                            var grad_pos = `background-position: ${lp}% ${tp}%;`
+                            var sprk_pos = `background-position: ${px_spark}% ${py_spark}%;`
+                            var opc = `opacity: ${p_opc / 100};`
+                            var tf = `transform: rotateX(${ty}deg) rotateY(${tx}deg)`
+                            // need to use a <style> tag for psuedo elements
+                            var style = `
       .card:hover:before { ${grad_pos} }  /* gradient */
       .card:hover:after { ${sprk_pos} ${opc} }   /* sparkles */ 
     `
-                        // set / apply css class and style
-                        $cards.removeClass("active");
-                        $card.removeClass("animated");
-                        $card.attr("style", tf);
-                        $style.html(style);
-                        if (e.type === "touchmove") {
-                            return false;
-                        }
-                        clearTimeout(x);
-                    }).on("mouseout touchend touchcancel", function () {
-                        // remove css, apply custom animation on end
-                        var $card = $(this);
-                        $style.html("");
-                        $card.removeAttr("style");
-                        x = setTimeout(function () {
-                            $card.addClass("animated");
-                        }, 2500);
-                    });
-            </script>
-            <a href="https://codepen.io/simeydotme/pen/abYWJdX"></a>
-</body>
+                            // set / apply css class and style
+                            $cards.removeClass("active");
+                            $card.removeClass("animated");
+                            $card.attr("style", tf);
+                            $style.html(style);
+                            if (e.type === "touchmove") {
+                                return false;
+                            }
+                            clearTimeout(x);
+                        }).on("mouseout touchend touchcancel", function () {
+                            // remove css, apply custom animation on end
+                            var $card = $(this);
+                            $style.html("");
+                            $card.removeAttr("style");
+                            x = setTimeout(function () {
+                                $card.addClass("animated");
+                            }, 2500);
+                        });
+                </script>
+                <a href="https://codepen.io/simeydotme/pen/abYWJdX"></a>
+    </body>
 
 </html>
